@@ -511,6 +511,175 @@
       padding: 20px;
       transition: opacity 0.4s ease;
     }
+
+    /* Main Menu Screen (Menu Awal) */
+    #screen-main-menu {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(15, 29, 58, 0.75) 0%, rgba(6, 11, 24, 0.88) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 140;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      pointer-events: auto;
+      transition: opacity 0.35s ease;
+    }
+
+    .menu-brand-card {
+      background: rgba(13, 20, 38, 0.88);
+      border: 1.5px solid var(--border-cyan);
+      box-shadow: 0 0 35px var(--cyan-glow), 0 20px 45px rgba(0, 0, 0, 0.7);
+      border-radius: 28px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 420px;
+      width: 90vw;
+      animation: menuFadeIn 0.35s ease;
+    }
+    @keyframes menuFadeIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .menu-logo-badge {
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 119, 182, 0.4));
+      border: 2px solid var(--cyan-neon);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .menu-game-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .menu-game-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan-neon);
+      letter-spacing: 1.2px;
+      margin-top: 6px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .menu-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .unity-btn-main {
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+    }
+
+    /* Settings Modal */
+    #settings-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 8, 18, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 180;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      animation: modalFadeIn 0.2s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .settings-panel {
+      width: min(480px, 92vw);
+      max-height: 85vh;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .settings-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 12px;
+    }
+
+    .settings-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .settings-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .unity-toggle-btn {
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 800;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .unity-toggle-btn.active {
+      background: var(--cyan-neon);
+      color: #031326;
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 14px rgba(0, 229, 255, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -520,7 +689,7 @@
   <!-- UI Overlay -->
   <div id="ui-container">
 
-    <!-- SPLASH LOADING (Short & Direct to Open World) -->
+    <!-- SPLASH LOADING -->
     <div id="screen-splash">
       <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.8">
         <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
@@ -528,12 +697,93 @@
         <path d="M12 22V12"/>
       </svg>
       <h1 style="font-size: 32px; font-weight: 900; color: #fff; margin-top: 12px; letter-spacing: 1px;">KURIR KOTA 3D</h1>
-      <p style="font-size: 13px; color: var(--cyan-neon); font-weight: 600;">OPEN WORLD DELIVERY SIMULATOR</p>
+      <p style="font-size: 13px; color: var(--cyan-neon); font-weight: 600;">SIMULATOR PENGANTAR MAKANAN OPEN WORLD</p>
       
       <div style="width: 240px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 99px; margin-top: 20px; overflow: hidden; border: 1px solid rgba(0,229,255,0.4);">
         <div id="splash-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #0077b6, #00e5ff); transition: width 0.15s;"></div>
       </div>
-      <p id="splash-txt" style="font-size: 11px; color: #94a3b8; margin-top: 10px;">Menghidupkan Kota Low-Poly & NPC...</p>
+      <p id="splash-txt" style="font-size: 11px; color: #94a3b8; margin-top: 10px;">Menyiapkan Restoran, Trotoar & Misi...</p>
+    </div>
+
+    <!-- MAIN MENU (Screen Awal Game) -->
+    <div id="screen-main-menu" style="display: none;">
+      <div class="menu-brand-card">
+        <div class="menu-logo-badge">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-neon)" stroke-width="2">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+            <path d="m3.3 7 8.7 5 8.7-5"/>
+            <path d="M12 22V12"/>
+          </svg>
+        </div>
+        <h1 class="menu-game-title">KURIR KOTA 3D</h1>
+        <p class="menu-game-sub">SIMULATOR PENGANTAR MAKANAN OPEN WORLD</p>
+        <div class="menu-btn-group">
+          <button id="btn-menu-play" class="unity-btn unity-btn-main">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>MAIN SEKARANG</span>
+          </button>
+          <button id="btn-menu-settings" class="unity-btn unity-btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>PENGATURAN</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS MODAL (Pilihan Pengaturan: Fullscreen, Rotasi, Suara, dll.) -->
+    <div id="settings-modal">
+      <div class="unity-panel settings-panel">
+        <div class="settings-header">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-neon)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <h3 style="font-size:18px; font-weight:800; color:#fff;">PENGATURAN GAME</h3>
+          </div>
+          <button id="btn-close-settings" class="unity-icon-btn">✕</button>
+        </div>
+
+        <div class="settings-content">
+          <!-- Fullscreen -->
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Mode Layar Penuh (Fullscreen)</div>
+              <div class="settings-desc">Perluas tampilan game memenuhi layar HP / PC</div>
+            </div>
+            <button id="toggle-fullscreen-btn" class="unity-toggle-btn">AKTIFKAN</button>
+          </div>
+
+          <!-- Sound Toggle & Volume -->
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Efek Suara & Mesin</div>
+              <div class="settings-desc">Aktifkan efek audio mesin mobil, klakson & benturan</div>
+            </div>
+            <button id="toggle-sound-btn" class="unity-toggle-btn active">NYALA</button>
+          </div>
+
+          <!-- Camera Rotation Sensitivity -->
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Kecepatan Rotasi Kamera Bebas</div>
+              <div class="settings-desc">Sensitivitas putaran saat mengusap layar 360°</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="range" id="setting-cam-sens" min="0.5" max="2.5" step="0.1" value="1.0" style="accent-color:var(--cyan-neon); width:110px;">
+              <span id="cam-sens-val" style="font-size:12px; font-weight:700; color:var(--cyan-neon); width:32px;">1.0x</span>
+            </div>
+          </div>
+
+          <!-- Camera Invert Yaw -->
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Pembalikan Arah Kamera (Invert)</div>
+              <div class="settings-desc">Balik arah putaran usapan horizontal</div>
+            </div>
+            <button id="toggle-invert-cam-btn" class="unity-toggle-btn">NORMAL</button>
+          </div>
+        </div>
+
+        <button id="btn-save-settings" class="unity-btn" style="width:100%; margin-top:16px;">SIMPAN & TUTUP</button>
+      </div>
     </div>
 
     <!-- LANDSCAPE HUD (Horizontal-First) -->
@@ -556,7 +806,7 @@
             <polygon points="12 2 19 21 12 17 5 21 12 2"/>
           </svg>
           <div>
-            <div id="hud-mission-name" style="font-size: 11px; font-weight: 800; color: #ffffff;">AMBIL PAKET</div>
+            <div id="hud-mission-name" style="font-size: 11px; font-weight: 800; color: #ffffff;">AMBIL MAKANAN</div>
             <div id="hud-mission-dist" style="font-size: 10px; font-weight: 700; color: var(--cyan-neon);">120 m</div>
           </div>
           <div id="hud-timer-badge" style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 8px; font-weight: 800; font-size: 12px; margin-left: 6px;">01:30</div>
@@ -568,11 +818,15 @@
         </div>
       </div>
 
-      <!-- Right cluster: In-Game Smartphone, Sound & Fullscreen -->
+      <!-- Right cluster: In-Game Smartphone, Settings & Fullscreen -->
       <div class="hud-cluster-right">
         <button id="btn-open-phone" class="hud-phone-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
           <span>HP KURIR</span>
+        </button>
+
+        <button id="btn-hud-settings" class="unity-icon-btn" title="Pengaturan">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
 
         <button id="btn-hud-audio" class="unity-icon-btn" title="Audio">
@@ -585,7 +839,7 @@
       </div>
     </div>
 
-    <!-- Free-Camera Drag Hint -->
+    <!-- Free-Camera Drag Hint (Auto fades away after 4s) -->
     <div class="cam-hint-toast">
       <span>👆 Usap layar untuk putar kamera 360° bebas</span>
     </div>
@@ -1009,58 +1263,118 @@
       }
     ];
 
-    const MISSIONS_DATA = [
-      {
-        id: 1,
-        title: 'Paket Kilat Kopi & Roti',
-        client: 'Cafe Sudut Kenangan',
-        desc: 'Ambil sarapan segar di Hub Sentral dan antar ke Cafe Sudut.',
-        pickup: { x: 0, z: 12, name: 'Hub Kurir Sentral' },
-        dropoff: { x: -35, z: -35, name: 'Cafe Sudut' },
-        timeLimit: 75,
-        reward: 50000
-      },
-      {
-        id: 2,
-        title: 'Sparepart Gadget & Chip',
-        client: 'Tech Plaza Cyber',
-        desc: 'Antar modul elektronik darurat ke Menara Gadget.',
-        pickup: { x: 35, z: 0, name: 'Gudang Logistik Timur' },
-        dropoff: { x: -35, z: 35, name: 'Menara Gadget' },
-        timeLimit: 90,
-        reward: 85000
-      },
-      {
-        id: 3,
-        title: 'Dokumen Penting Balai Kota',
-        client: 'Dinas Arsip Kota',
-        desc: 'Berkas perizinan harus sampai sebelum kantor tutup.',
-        pickup: { x: -35, z: 10, name: 'Kantor Pos Barat' },
-        dropoff: { x: 35, z: 35, name: 'Balai Kota Megah' },
-        timeLimit: 80,
-        reward: 120000
-      },
-      {
-        id: 4,
-        title: 'Obat Darurat Apotek 24 Jam',
-        client: 'Klinik Sehat Sentosa',
-        desc: 'Paket obat medis darurat untuk pasien rumah sakit.',
-        pickup: { x: 0, z: -35, name: 'Laboratorium Sentral' },
-        dropoff: { x: 35, z: -35, name: 'Apotek Sehat' },
-        timeLimit: 65,
-        reward: 160000
-      },
-      {
-        id: 5,
-        title: 'Paket VIP Jam Tangan Mewah',
-        client: 'Boutique Royale',
-        desc: 'Barang berharga khusus diantar langsung ke Penthouse Elit.',
-        pickup: { x: -35, z: -35, name: 'Boutique Royale' },
-        dropoff: { x: 35, z: 50, name: 'Penthouse Barat' },
-        timeLimit: 100,
-        reward: 250000
-      }
+    /* ==========================================================================
+       2. PROCEDURAL FOOD DELIVERY MISSIONS & ACHIEVABILITY ALGORITHM
+       ========================================================================== */
+    const FOOD_ITEMS = [
+      { name: 'Nasi Goreng Spesial + Telur Dadar', type: '🍲 Makanan Berat', icon: '🍳' },
+      { name: 'Ayam Geprek Sambal Korek Level 5', type: '🍗 Pedas Mantap', icon: '🌶️' },
+      { name: 'Sate Ayam Madura 20 Tusuk', type: '🍢 Kuliner Khas', icon: '🍢' },
+      { name: 'Rendang Daging Sapi Balado', type: '🍛 Padang Asli', icon: '🥩' },
+      { name: 'Martabak Manis Keju Cokelat Jumbo', type: '🥞 Camilan Malam', icon: '🧀' },
+      { name: 'Bakso Mercon Kuah Pedas Tulang', type: '🍜 Kuah Gurih', icon: '🍲' },
+      { name: 'Bebek Goreng Kremes Sambal Ijo', type: '🦆 Crispy Enak', icon: '🍗' },
+      { name: 'Mie Aceh Kepiting Kuah Kental', type: '🍝 Kuliner Nusantara', icon: '🍜' },
+      { name: 'Soto Betawi Daging & Jerohan', type: '🍲 Kuah Santan', icon: '🍲' },
+      { name: 'Pisang Goreng Wijen Gula Aren', type: '🍌 Snack Sore', icon: '🍌' },
+      { name: 'Es Teh Manis Jumbo & Es Cendol', type: '🥤 Minuman Segar', icon: '🧋' },
+      { name: 'Gado-Gado Komplit Bumbu Kacang', type: '🥗 Sehat Segar', icon: '🥗' }
     ];
+
+    const RESTAURANTS_POI = [
+      { id: 'resto_padang', name: 'RM Padang Sederhana', x: 28, z: 28, awningColor: 0xef476f },
+      { id: 'resto_kopi', name: 'Kedai Kopi & Roti Kenangan', x: -28, z: 28, awningColor: 0x78350f },
+      { id: 'resto_geprek', name: 'Ayam Geprek Sambal Petir', x: 28, z: -28, awningColor: 0xf59e0b },
+      { id: 'resto_bakso', name: 'Bakso Mercon Cak Slamet', x: -28, z: -28, awningColor: 0xef4444 },
+      { id: 'resto_sate', name: 'Warung Sate Madura H. Romli', x: 68, z: 28, awningColor: 0x8b5cf6 },
+      { id: 'resto_martabak', name: 'Martabak Bangka Bang Ali', x: -68, z: 28, awningColor: 0x10b981 },
+      { id: 'resto_bebek', name: 'Bebek Goreng Madura Sinjay', x: 28, z: 68, awningColor: 0x3b82f6 },
+      { id: 'resto_soto', name: 'Soto Betawi Mampang 99', x: -28, z: -68, awningColor: 0x06b6d4 }
+    ];
+
+    const CUSTOMERS_POI = [
+      { id: 'cust_tower', name: 'Menara Cyber Plaza Lt. 15', x: -68, z: -68, type: '🏢 Kantor' },
+      { id: 'cust_apt1', name: 'Apartemen Permata Hijau B-08', x: 68, z: -68, type: '🏬 Apartemen' },
+      { id: 'cust_house1', name: 'Perumahan Asri No. 12', x: 68, z: 68, type: '🏡 Rumah Tinggal' },
+      { id: 'cust_clinic', name: 'Klinik Medika Sehat Sentosa', x: -68, z: 68, type: '🏥 Fasilitas Kesehatan' },
+      { id: 'cust_univ', name: 'Kampus IT & Studio Multimedia', x: 0, z: -68, type: '🎓 Kampus' },
+      { id: 'cust_apt2', name: 'Kondominium Grand City Suite', x: 0, z: 68, type: '🏢 Penthouse' },
+      { id: 'cust_residence', name: 'Griya Harmoni Blok C-4', x: -68, z: 0, type: '🏡 Rumah Cluster' },
+      { id: 'cust_hub', name: 'Studio Kreatif & Co-Working', x: 68, z: 0, type: '💼 Ruang Kerja' }
+    ];
+
+    // Algoritma Evaluasi Kelayakan Misi (Achievability Algorithm)
+    function evaluateMissionAchievability(pickup, dropoff, playerWallet, activeVehicleId) {
+      const dx = Math.abs(dropoff.x - pickup.x);
+      const dz = Math.abs(dropoff.z - pickup.z);
+      const manhattanDist = dx + dz;
+      const streetDist = manhattanDist * 1.12;
+
+      const veh = VEHICLES_DATA.find(v => v.id === activeVehicleId) || VEHICLES_DATA[2];
+      const avgSpeed = veh.isBike ? 13.5 : (veh.id === 'truk' ? 10.5 : 12.0); // m/s
+      const baseDriveSeconds = streetDist / avgSpeed;
+      const handoffBuffer = 16; // Waktu parkir dan serah terima
+      const minRequiredTime = Math.ceil(baseDriveSeconds + handoffBuffer);
+
+      // Tingkat kesulitan berdasarkan uang/pengalaman
+      const completedOrdersEst = Math.floor(playerWallet / 35000);
+      let tier = 'NORMAL';
+      let safetyMargin = 1.45;
+
+      if (completedOrdersEst >= 4 && Math.random() > 0.45) {
+        tier = 'KILAT';
+        safetyMargin = 1.22;
+      } else if (completedOrdersEst >= 2 && Math.random() > 0.55) {
+        tier = 'SANTAI';
+        safetyMargin = 1.65;
+      }
+
+      const calculatedTime = Math.round(minRequiredTime * safetyMargin);
+      const baseFee = 25000;
+      const perMeterRate = 280;
+      const tierBonus = tier === 'KILAT' ? 1.35 : (tier === 'SANTAI' ? 1.0 : 1.15);
+      const calculatedReward = Math.round(((baseFee + (streetDist * perMeterRate)) * tierBonus) / 1000) * 1000;
+
+      return {
+        distance: Math.round(streetDist),
+        timeLimit: Math.max(50, Math.min(180, calculatedTime)),
+        reward: calculatedReward,
+        difficultyTier: tier,
+        isAchievable: calculatedTime >= minRequiredTime
+      };
+    }
+
+    function generateDynamicMissions(count = 5) {
+      const missions = [];
+      for (let i = 0; i < count; i++) {
+        const food = FOOD_ITEMS[(i + Math.floor(Math.random() * FOOD_ITEMS.length)) % FOOD_ITEMS.length];
+        const resto = RESTAURANTS_POI[(i + Math.floor(Math.random() * RESTAURANTS_POI.length)) % RESTAURANTS_POI.length];
+        let cust = CUSTOMERS_POI[(i * 3 + 1) % CUSTOMERS_POI.length];
+        if (cust.x === resto.x && cust.z === resto.z) {
+          cust = CUSTOMERS_POI[(i * 3 + 2) % CUSTOMERS_POI.length];
+        }
+
+        const evalResult = evaluateMissionAchievability(resto, cust, 0, 'sedan');
+
+        missions.push({
+          id: i + 1,
+          title: `${food.name}`,
+          foodType: food.type,
+          icon: food.icon,
+          client: resto.name,
+          desc: `Ambil pesanan di ${resto.name} dan antar segera ke ${cust.name}.`,
+          pickup: { x: resto.x, z: resto.z, name: resto.name },
+          dropoff: { x: cust.x, z: cust.z, name: cust.name },
+          timeLimit: evalResult.timeLimit,
+          reward: evalResult.reward,
+          distance: evalResult.distance,
+          difficultyTier: evalResult.difficultyTier
+        });
+      }
+      return missions;
+    }
+
+    let currentAvailableMissions = generateDynamicMissions(5);
 
     /* ==========================================================================
        3. THREE.JS & CANNON-ES SETUP (Optimized for Mobile, No Heavy Shadows)
@@ -1076,47 +1390,41 @@
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
-    // Explicitly disable costly realtime shadow maps as requested
     renderer.shadowMap.enabled = false;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x78c7fa);
-    scene.fog = new THREE.Fog(0x78c7fa, 50, 240);
+    scene.fog = new THREE.Fog(0x78c7fa, 60, 260);
 
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.3, 350);
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.3, 380);
 
     // Balanced Studio Lighting
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x4a7c59, 0.95);
     scene.add(hemiLight);
 
     const sunLight = new THREE.DirectionalLight(0xfffae6, 1.3);
-    sunLight.position.set(50, 80, 40);
+    sunLight.position.set(60, 90, 50);
     scene.add(sunLight);
 
     // Physics World
     const world = new CANNON.World();
     world.gravity.set(0, -9.82, 0);
     world.broadphase = new CANNON.SAPBroadphase(world);
-    world.allowSleep = true;
+    world.allowSleep = false; // Always responsive to throttle/movement
 
-    // Contact Materials
     const groundMaterial = new CANNON.Material('ground');
-    const wheelMaterial = new CANNON.Material('wheel');
-    const wheelContact = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
-      friction: 0.8,
-      restitution: 0.1,
-      contactEquationStiffness: 1000
-    });
-    world.addContactMaterial(wheelContact);
 
     /* ==========================================================================
-       4. PROCEDURAL CITY (Roads, Buildings, Trees, Visual Blob Shadows)
+       4. PROCEDURAL CITY (Wider Roads 22m, Elevated Sidewalks, Resto Storefronts)
        ========================================================================== */
-    const CITY_SIZE = 240;
+    const CITY_SIZE = 280;
     const mats = {
-      ground: new THREE.MeshLambertMaterial({ color: 0x5a9e52 }),
-      road: new THREE.MeshLambertMaterial({ color: 0x2b303a }),
-      stripe: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      ground: new THREE.MeshLambertMaterial({ color: 0x4f8f48 }),
+      road: new THREE.MeshLambertMaterial({ color: 0x22262e }),
+      sidewalk: new THREE.MeshLambertMaterial({ color: 0x94a3b8 }),
+      curb: new THREE.MeshLambertMaterial({ color: 0x64748b }),
+      stripeWhite: new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      stripeYellow: new THREE.MeshBasicMaterial({ color: 0xfacc15 }),
       treeTrunk: new THREE.MeshLambertMaterial({ color: 0x6d4c41 }),
       treeLeaves: new THREE.MeshLambertMaterial({ color: 0x2e7d32, flatShading: true }),
       blobShadow: new THREE.MeshBasicMaterial({
@@ -1127,8 +1435,8 @@
       })
     };
 
-    // Ground Plane
-    const groundGeo = new THREE.PlaneGeometry(CITY_SIZE * 1.5, CITY_SIZE * 1.5);
+    // Endless Ground Plane (Open World, No Wall Boundaries)
+    const groundGeo = new THREE.PlaneGeometry(CITY_SIZE * 3.0, CITY_SIZE * 3.0);
     const groundMesh = new THREE.Mesh(groundGeo, mats.ground);
     groundMesh.rotation.x = -Math.PI / 2;
     groundMesh.position.y = -0.05;
@@ -1142,46 +1450,121 @@
     groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
     world.addBody(groundBody);
 
-    // Road Grid (Avenues at 0, ±35, ±70)
+    // Wider Road Network (22m Width) with Elevated Sidewalks (Trotoar 5m)
     function buildRoadNetwork() {
       const roadGroup = new THREE.Group();
-      const roadWidth = 14;
-      const roadSegments = [-70, -35, 0, 35, 70];
+      const roadWidth = 22; // Lebar jalan 22m luas & nyaman
+      const sidewalkWidth = 5.0; // Trotoar pembatas 5m
+      const curbHeight = 0.22; // Tinggi trotoar pembatas
+      const roadSegments = [-80, 0, 80];
 
       roadSegments.forEach(pos => {
-        // Horizontal road
+        // Horizontal Road Surface (22m wide)
         const roadH = new THREE.Mesh(new THREE.PlaneGeometry(CITY_SIZE, roadWidth), mats.road);
         roadH.rotation.x = -Math.PI / 2;
         roadH.position.set(0, 0.01, pos);
         roadGroup.add(roadH);
 
-        // Vertical road
+        // Vertical Road Surface (22m wide)
         const roadV = new THREE.Mesh(new THREE.PlaneGeometry(roadWidth, CITY_SIZE), mats.road);
         roadV.rotation.x = -Math.PI / 2;
         roadV.position.set(pos, 0.015, 0);
         roadGroup.add(roadV);
 
-        // Stripes
-        for (let i = -CITY_SIZE / 2 + 10; i < CITY_SIZE / 2; i += 8) {
-          const sH = new THREE.Mesh(new THREE.PlaneGeometry(4, 0.35), mats.stripe);
-          sH.rotation.x = -Math.PI / 2;
-          sH.position.set(i, 0.02, pos);
-          roadGroup.add(sH);
+        // Road Markings: Double Yellow Center Lines + Dashed White Lanes
+        for (let i = -CITY_SIZE / 2 + 10; i < CITY_SIZE / 2; i += 9) {
+          // Double Yellow Center Lines (Horizontal)
+          const yH1 = new THREE.Mesh(new THREE.PlaneGeometry(5, 0.22), mats.stripeYellow);
+          yH1.rotation.x = -Math.PI / 2;
+          yH1.position.set(i, 0.02, pos + 0.25);
+          roadGroup.add(yH1);
 
-          const sV = new THREE.Mesh(new THREE.PlaneGeometry(0.35, 4), mats.stripe);
-          sV.rotation.x = -Math.PI / 2;
-          sV.position.set(pos, 0.025, i);
-          roadGroup.add(sV);
+          const yH2 = new THREE.Mesh(new THREE.PlaneGeometry(5, 0.22), mats.stripeYellow);
+          yH2.rotation.x = -Math.PI / 2;
+          yH2.position.set(i, 0.02, pos - 0.25);
+          roadGroup.add(yH2);
+
+          // Dashed White Lane Dividers (+5.5m and -5.5m from center)
+          const wH1 = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 0.25), mats.stripeWhite);
+          wH1.rotation.x = -Math.PI / 2;
+          wH1.position.set(i, 0.02, pos + 5.5);
+          roadGroup.add(wH1);
+
+          const wH2 = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 0.25), mats.stripeWhite);
+          wH2.rotation.x = -Math.PI / 2;
+          wH2.position.set(i, 0.02, pos - 5.5);
+          roadGroup.add(wH2);
+
+          // Vertical Lines
+          const yV1 = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 5), mats.stripeYellow);
+          yV1.rotation.x = -Math.PI / 2;
+          yV1.position.set(pos + 0.25, 0.025, i);
+          roadGroup.add(yV1);
+
+          const yV2 = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 5), mats.stripeYellow);
+          yV2.rotation.x = -Math.PI / 2;
+          yV2.position.set(pos - 0.25, 0.025, i);
+          roadGroup.add(yV2);
+
+          const wV1 = new THREE.Mesh(new THREE.PlaneGeometry(0.25, 3.5), mats.stripeWhite);
+          wV1.rotation.x = -Math.PI / 2;
+          wV1.position.set(pos + 5.5, 0.025, i);
+          roadGroup.add(wV1);
+
+          const wV2 = new THREE.Mesh(new THREE.PlaneGeometry(0.25, 3.5), mats.stripeWhite);
+          wV2.rotation.x = -Math.PI / 2;
+          wV2.position.set(pos - 5.5, 0.025, i);
+          roadGroup.add(wV2);
         }
+
+        // ELEVATED SIDEWALKS (Trotoar Pembatas Jalan dengan Gedung)
+        // Along Horizontal Road (Top and Bottom sides)
+        [pos - (roadWidth / 2 + sidewalkWidth / 2), pos + (roadWidth / 2 + sidewalkWidth / 2)].forEach(swZ => {
+          const swMesh = new THREE.Mesh(new THREE.BoxGeometry(CITY_SIZE, curbHeight, sidewalkWidth), mats.sidewalk);
+          swMesh.position.set(0, curbHeight / 2, swZ);
+          roadGroup.add(swMesh);
+
+          // Curb Edge Strip
+          const curbStrip = new THREE.Mesh(new THREE.BoxGeometry(CITY_SIZE, curbHeight + 0.02, 0.35), mats.curb);
+          curbStrip.position.set(0, curbHeight / 2, swZ > pos ? swZ - sidewalkWidth / 2 : swZ + sidewalkWidth / 2);
+          roadGroup.add(curbStrip);
+
+          // CANNON Static Box Collider for Curb
+          const swBody = new CANNON.Body({
+            type: CANNON.Body.STATIC,
+            position: new CANNON.Vec3(0, curbHeight / 2, swZ)
+          });
+          swBody.addShape(new CANNON.Box(new CANNON.Vec3(CITY_SIZE / 2, curbHeight / 2, sidewalkWidth / 2)));
+          world.addBody(swBody);
+        });
+
+        // Along Vertical Road (Left and Right sides)
+        [pos - (roadWidth / 2 + sidewalkWidth / 2), pos + (roadWidth / 2 + sidewalkWidth / 2)].forEach(swX => {
+          const swMesh = new THREE.Mesh(new THREE.BoxGeometry(sidewalkWidth, curbHeight, CITY_SIZE), mats.sidewalk);
+          swMesh.position.set(swX, curbHeight / 2, 0);
+          roadGroup.add(swMesh);
+
+          const curbStrip = new THREE.Mesh(new THREE.BoxGeometry(0.35, curbHeight + 0.02, CITY_SIZE), mats.curb);
+          curbStrip.position.set(swX > pos ? swX - sidewalkWidth / 2 : swX + sidewalkWidth / 2, curbHeight / 2, 0);
+          roadGroup.add(curbStrip);
+
+          const swBody = new CANNON.Body({
+            type: CANNON.Body.STATIC,
+            position: new CANNON.Vec3(swX, curbHeight / 2, 0)
+          });
+          swBody.addShape(new CANNON.Box(new CANNON.Vec3(sidewalkWidth / 2, curbHeight / 2, CITY_SIZE / 2)));
+          world.addBody(swBody);
+        });
       });
+
       scene.add(roadGroup);
     }
     buildRoadNetwork();
 
-    // Procedural Buildings
+    // Procedural Buildings & Storefronts
     const buildingColors = [0x38bdf8, 0x818cf8, 0xf472b6, 0xfb923c, 0xfacc15, 0x4ade80, 0x2dd4bf, 0xe2e8f0, 0xa78bfa];
 
-    function createBuilding(x, z, width, depth, height, color) {
+    function createBuilding(x, z, width, depth, height, color, isStorefront = false, awningColor = 0xef476f, label = '') {
       const group = new THREE.Group();
 
       const bodyGeo = new THREE.BoxGeometry(width, height, depth);
@@ -1191,19 +1574,42 @@
       group.add(bodyMesh);
 
       // Roof Border
-      const roofGeo = new THREE.BoxGeometry(width + 0.4, 0.5, depth + 0.4);
+      const roofGeo = new THREE.BoxGeometry(width + 0.5, 0.6, depth + 0.5);
       const roofMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
       const roofMesh = new THREE.Mesh(roofGeo, roofMat);
-      roofMesh.position.y = height + 0.25;
+      roofMesh.position.y = height + 0.3;
       group.add(roofMesh);
 
       // Windows
       const winMat = new THREE.MeshBasicMaterial({ color: 0xdff5ff });
-      const floors = Math.floor(height / 4);
+      const floors = Math.floor(height / 3.8);
       for (let f = 1; f < floors; f++) {
         const win = new THREE.Mesh(new THREE.BoxGeometry(width * 0.82, 1.2, depth + 0.1), winMat);
-        win.position.y = f * 3.8;
+        win.position.y = f * 3.6;
         group.add(win);
+      }
+
+      // Restoran / Warung Awning (Canopy & Sign)
+      if (isStorefront) {
+        const awningMat = new THREE.MeshLambertMaterial({ color: awningColor, flatShading: true });
+        const awningGeo = new THREE.BoxGeometry(width * 0.9, 0.4, 2.5);
+        const awning = new THREE.Mesh(awningGeo, awningMat);
+        awning.position.set(0, 3.2, depth / 2 + 1.2);
+        awning.rotation.x = 0.22;
+        group.add(awning);
+
+        // Signboard
+        const signGeo = new THREE.BoxGeometry(width * 0.8, 0.8, 0.2);
+        const signMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const sign = new THREE.Mesh(signGeo, signMat);
+        sign.position.set(0, 4.2, depth / 2 + 0.1);
+        group.add(sign);
+
+        // Entrance Door Mat
+        const matMesh = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 1.5), new THREE.MeshBasicMaterial({ color: awningColor }));
+        matMesh.rotation.x = -Math.PI / 2;
+        matMesh.position.set(0, 0.24, depth / 2 + 1.2);
+        group.add(matMesh);
       }
 
       group.position.set(x, 0, z);
@@ -1219,27 +1625,43 @@
       world.addBody(body);
     }
 
-    // Populate City Blocks
+    // Populate City with 8 Restaurants, 8 Customer Destinations, and Downtown Highrises
     function generateCityBlocks() {
-      const blockCenters = [
-        { x: -52, z: -52 }, { x: -17, z: -52 }, { x: 17, z: -52 }, { x: 52, z: -52 },
-        { x: -52, z: -17 }, { x: -17, z: -17 }, { x: 17, z: -17 }, { x: 52, z: -17 },
-        { x: -52, z: 17 },  { x: -17, z: 17 },  { x: 17, z: 17 },  { x: 52, z: 17 },
-        { x: -52, z: 52 },  { x: -17, z: 52 },  { x: 17, z: 52 },  { x: 52, z: 52 }
+      // 1. Place 8 Restaurants with authentic Indonesian food awnings
+      RESTAURANTS_POI.forEach(r => {
+        createBuilding(r.x, r.z, 14, 14, 10, 0xf1f5f9, true, r.awningColor, r.name);
+      });
+
+      // 2. Place 8 Customer Dropoff Addresses
+      CUSTOMERS_POI.forEach((c, idx) => {
+        const h = 18 + (idx % 3) * 12;
+        const color = buildingColors[(idx * 2) % buildingColors.length];
+        createBuilding(c.x, c.z, 15, 15, h, color, false, 0x00e5ff, c.name);
+      });
+
+      // 3. Regular city highrises and residential houses
+      const extraBlocks = [
+        { x: -40, z: -40, w: 14, d: 14, h: 26, c: 0x38bdf8 },
+        { x: 40, z: -40, w: 14, d: 14, h: 32, c: 0x818cf8 },
+        { x: -40, z: 40, w: 14, d: 14, h: 22, c: 0xf472b6 },
+        { x: 40, z: 40, w: 14, d: 14, h: 28, c: 0x4ade80 },
+        { x: -105, z: -40, w: 16, d: 16, h: 18, c: 0xfb923c },
+        { x: 105, z: -40, w: 16, d: 16, h: 24, c: 0xa78bfa },
+        { x: -105, z: 40, w: 16, d: 16, h: 20, c: 0x2dd4bf },
+        { x: 105, z: 40, w: 16, d: 16, h: 25, c: 0xfacc15 },
+        { x: -40, z: -105, w: 16, d: 16, h: 22, c: 0x38bdf8 },
+        { x: 40, z: -105, w: 16, d: 16, h: 28, c: 0x818cf8 },
+        { x: -40, z: 105, w: 16, d: 16, h: 19, c: 0x4ade80 },
+        { x: 40, z: 105, w: 16, d: 16, h: 26, c: 0xf472b6 }
       ];
 
-      blockCenters.forEach((b, idx) => {
-        const c1 = buildingColors[idx % buildingColors.length];
-        const c2 = buildingColors[(idx + 3) % buildingColors.length];
-        const h1 = 12 + ((idx * 7) % 22);
-        const h2 = 14 + ((idx * 11) % 20);
-        createBuilding(b.x - 5, b.z - 5, 12, 12, h1, c1);
-        createBuilding(b.x + 6, b.z + 6, 10, 10, h2, c2);
+      extraBlocks.forEach(b => {
+        createBuilding(b.x, b.z, b.w, b.d, b.h, b.c);
       });
     }
     generateCityBlocks();
 
-    // Trees along sidewalks with static physics hitboxes
+    // Trees along elevated sidewalks with physical hitboxes
     function createTree(x, z) {
       const tree = new THREE.Group();
       const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.45, 2.5, 6), mats.treeTrunk);
@@ -1252,13 +1674,12 @@
 
       const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.8, 10), mats.blobShadow);
       shadow.rotation.x = -Math.PI / 2;
-      shadow.position.y = 0.02;
+      shadow.position.y = 0.24;
       tree.add(shadow);
 
       tree.position.set(x, 0, z);
       scene.add(tree);
 
-      // Hitbox Collision for Tree Trunk
       const trunkBody = new CANNON.Body({
         type: CANNON.Body.STATIC,
         position: new CANNON.Vec3(x, 1.25, z)
@@ -1267,63 +1688,29 @@
       world.addBody(trunkBody);
     }
 
-    for (let i = -70; i <= 70; i += 24) {
-      if (Math.abs(i) > 8) {
-        createTree(i, -8);
-        createTree(i, 8);
-        createTree(-8, i);
-        createTree(8, i);
+    // Plant trees along sidewalks
+    for (let i = -90; i <= 90; i += 30) {
+      if (Math.abs(i) > 15) {
+        createTree(i, -13.5);
+        createTree(i, 13.5);
+        createTree(-13.5, i);
+        createTree(13.5, i);
       }
     }
 
-    // City Perimeter Hitbox Boundaries (Guardrails & Walls to prevent driving off map)
-    function buildCityBoundaries() {
-      const barrierMat = new THREE.MeshLambertMaterial({ color: 0x334155 });
-      const stripeMat = new THREE.MeshLambertMaterial({ color: 0xfacc15 });
-      const borderHalf = CITY_SIZE / 2; // 120m
-
-      const walls = [
-        { x: 0, z: -borderHalf, width: CITY_SIZE, depth: 2.5, height: 4.5 },
-        { x: 0, z: borderHalf,  width: CITY_SIZE, depth: 2.5, height: 4.5 },
-        { x: -borderHalf, z: 0, width: 2.5, depth: CITY_SIZE, height: 4.5 },
-        { x: borderHalf,  z: 0, width: 2.5, depth: CITY_SIZE, height: 4.5 }
-      ];
-
-      walls.forEach(w => {
-        // Visual Wall
-        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w.width, w.height, w.depth), barrierMat);
-        mesh.position.set(w.x, w.height / 2, w.z);
-        scene.add(mesh);
-
-        // Warning Hazard Rail
-        const rail = new THREE.Mesh(new THREE.BoxGeometry(w.width, 0.7, w.depth * 1.05), stripeMat);
-        rail.position.set(w.x, w.height * 0.65, w.z);
-        scene.add(rail);
-
-        // Static CANNON Hitbox
-        const body = new CANNON.Body({
-          type: CANNON.Body.STATIC,
-          position: new CANNON.Vec3(w.x, w.height / 2, w.z)
-        });
-        body.addShape(new CANNON.Box(new CANNON.Vec3(w.width / 2, w.height / 2, w.depth / 2)));
-        world.addBody(body);
-      });
-    }
-    buildCityBoundaries();
-
     /* ==========================================================================
-       5. LIVING CITY NPCS (Animated Low-Poly Pedestrians Walking Along Sidewalks)
+       5. LIVING CITY NPCS (Animated Pedestrians on Sidewalks)
        ========================================================================== */
     class NPCManager {
       constructor() {
         this.npcs = [];
         this.routes = [
-          { start: { x: -35, z: 8 }, end: { x: 35, z: 8 } },
-          { start: { x: 35, z: -8 }, end: { x: -35, z: -8 } },
-          { start: { x: 8, z: -35 }, end: { x: 8, z: 35 } },
-          { start: { x: -8, z: 35 }, end: { x: -8, z: -35 } },
-          { start: { x: -70, z: 8 }, end: { x: -40, z: 8 } },
-          { start: { x: 40, z: 8 }, end: { x: 70, z: 8 } }
+          { start: { x: -45, z: 13.5 }, end: { x: 45, z: 13.5 } },
+          { start: { x: 45, z: -13.5 }, end: { x: -45, z: -13.5 } },
+          { start: { x: 13.5, z: -45 }, end: { x: 13.5, z: 45 } },
+          { start: { x: -13.5, z: 45 }, end: { x: -13.5, z: -45 } },
+          { start: { x: -80, z: 13.5 }, end: { x: -50, z: 13.5 } },
+          { start: { x: 50, z: 13.5 }, end: { x: 80, z: 13.5 } }
         ];
 
         this.initNPCs();
@@ -1357,7 +1744,7 @@
             rightLeg.position.set(-0.12, 0.4, 0);
             group.add(rightLeg);
 
-            // Contact Shadow
+            // Contact Shadow on sidewalk
             const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.4, 10), mats.blobShadow);
             shadow.rotation.x = -Math.PI / 2;
             shadow.position.y = 0.02;
@@ -1393,14 +1780,12 @@
 
           const curX = THREE.MathUtils.lerp(npc.route.start.x, npc.route.end.x, npc.progress);
           const curZ = THREE.MathUtils.lerp(npc.route.start.z, npc.route.end.z, npc.progress);
-          npc.group.position.set(curX, 0, curZ);
+          npc.group.position.set(curX, 0.22, curZ);
 
-          // Face movement
           const dx = (npc.route.end.x - npc.route.start.x) * npc.direction;
           const dz = (npc.route.end.z - npc.route.start.z) * npc.direction;
           npc.group.rotation.y = Math.atan2(dx, dz);
 
-          // Walk animation
           npc.animTime += dt * 8;
           npc.leftLeg.rotation.x = Math.sin(npc.animTime) * 0.6;
           npc.rightLeg.rotation.x = -Math.sin(npc.animTime) * 0.6;
@@ -1411,7 +1796,7 @@
     const npcManager = new NPCManager();
 
     /* ==========================================================================
-       6. VEHICLE FACTORY (Fixed Direction & Smooth Forward/Reverse Driving)
+       6. VEHICLE FACTORY (Snug Body, Bottom-Flush Wheels, Zero Sinking)
        ========================================================================== */
     class VehicleFactory {
       static createVehicle(cfg) {
@@ -1430,107 +1815,179 @@
         const chassisLength = cfg.length;
         const wheelRadius = cfg.wheelRadius;
 
+        // WHEEL GEOMETRY & PLACEMENT
+        // Centers at local Y = wheelRadius so bottoms touch ground at Y = 0.0!
+        const wheelWidth = cfg.isBike ? 0.22 : 0.32;
+        const wheelHalfTrack = cfg.isBike ? 0.0 : (chassisWidth * 0.46);
+        const wheelBase = chassisLength * 0.32;
+
+        const wheelGeo = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelWidth, 16);
+        wheelGeo.rotateZ(Math.PI / 2);
+        const wheelMat = new THREE.MeshLambertMaterial({ color: 0x111827 });
+        const rimGeo = new THREE.CylinderGeometry(wheelRadius * 0.55, wheelRadius * 0.55, wheelWidth + 0.01, 8);
+        rimGeo.rotateZ(Math.PI / 2);
+        const rimMat = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
+
+        function makeWheelMesh() {
+          const g = new THREE.Group();
+          g.add(new THREE.Mesh(wheelGeo, wheelMat));
+          g.add(new THREE.Mesh(rimGeo, rimMat));
+          return g;
+        }
+
+        // Steering pivots for front wheels
+        const frontLeftPivot = new THREE.Group();
+        const frontRightPivot = new THREE.Group();
+        const frontLeftWheel = makeWheelMesh();
+        const frontRightWheel = makeWheelMesh();
+        frontLeftPivot.add(frontLeftWheel);
+        frontRightPivot.add(frontRightWheel);
+
+        const rearLeftWheel = makeWheelMesh();
+        const rearRightWheel = makeWheelMesh();
+
         if (cfg.isBike) {
-          // MOTORCYCLE / SCOOTER
+          frontLeftPivot.position.set(0, wheelRadius, wheelBase);
+          rearLeftWheel.position.set(0, wheelRadius, -wheelBase);
+          group.add(frontLeftPivot);
+          group.add(rearLeftWheel);
+        } else {
+          frontLeftPivot.position.set(wheelHalfTrack, wheelRadius, wheelBase);
+          frontRightPivot.position.set(-wheelHalfTrack, wheelRadius, wheelBase);
+          rearLeftWheel.position.set(wheelHalfTrack, wheelRadius, -wheelBase);
+          rearRightWheel.position.set(-wheelHalfTrack, wheelRadius, -wheelBase);
+
+          group.add(frontLeftPivot);
+          group.add(frontRightPivot);
+          group.add(rearLeftWheel);
+          group.add(rearRightWheel);
+        }
+
+        const wheelMeshes = cfg.isBike
+          ? [frontLeftWheel, rearLeftWheel]
+          : [frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel];
+
+        // VEHICLE BODY - SNUG OVER WHEELS (NO FLOATING GAP)
+        const bodyBaseY = wheelRadius * 0.85;
+
+        if (cfg.isBike) {
+          // Motor / Skuter
           const frame = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.45, chassisLength * 0.85), bodyMat);
-          frame.position.y = 0.45;
+          frame.position.set(0, bodyBaseY + 0.22, 0);
           chassisGroup.add(frame);
 
-          const seat = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.15, 0.7), darkTrimMat);
-          seat.position.set(0, 0.75, -0.2);
+          const seat = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.15, 0.65), darkTrimMat);
+          seat.position.set(0, bodyBaseY + 0.48, -0.2);
           chassisGroup.add(seat);
 
-          // Front Headlight (pointing +Z forward!)
+          const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.7, 8), darkTrimMat);
+          handle.rotation.z = Math.PI / 2;
+          handle.position.set(0, bodyBaseY + 0.68, 0.55);
+          chassisGroup.add(handle);
+
           const headL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.15, 8), lightMat);
           headL.rotation.x = Math.PI / 2;
-          headL.position.set(0, 0.85, 0.85);
+          headL.position.set(0, bodyBaseY + 0.55, chassisLength * 0.45);
           chassisGroup.add(headL);
 
-          // Rear Courier Parcel Box
-          const parcelBox = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.5, 0.55), parcelMat);
-          parcelBox.position.set(0, 0.95, -0.75);
-          chassisGroup.add(parcelBox);
+          // Box Makanan Kurir
+          const foodBox = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.5, 0.55), parcelMat);
+          foodBox.position.set(0, bodyBaseY + 0.65, -chassisLength * 0.38);
+          chassisGroup.add(foodBox);
         } else {
-          // 4-WHEEL CARS (Front is +Z, Rear is -Z)
-          const lowerBody = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth, chassisHeight * 0.45, chassisLength), bodyMat);
-          lowerBody.position.y = chassisHeight * 0.35;
+          // Mobil 4-Roda
+          const lowerHeight = chassisHeight * 0.45;
+          const lowerBody = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth, lowerHeight, chassisLength), bodyMat);
+          lowerBody.position.set(0, bodyBaseY + lowerHeight / 2, 0);
           chassisGroup.add(lowerBody);
 
+          const skirt = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 1.02, 0.12, chassisLength * 0.96), darkTrimMat);
+          skirt.position.set(0, bodyBaseY + 0.06, 0);
+          chassisGroup.add(skirt);
+
           if (cfg.id === 'sedan') {
-            const cabin = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.85, chassisHeight * 0.45, chassisLength * 0.55), bodyMat);
-            cabin.position.set(0, chassisHeight * 0.7, -0.15);
+            const cabinHeight = chassisHeight * 0.48;
+            const cabin = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.86, cabinHeight, chassisLength * 0.55), bodyMat);
+            cabin.position.set(0, bodyBaseY + lowerHeight + cabinHeight / 2 - 0.02, -0.15);
             chassisGroup.add(cabin);
 
-            const win = new THREE.Mesh(new THREE.PlaneGeometry(chassisWidth * 0.75, chassisHeight * 0.35), glassMat);
-            win.position.set(0, chassisHeight * 0.7, chassisLength * 0.13);
-            win.rotation.x = -0.3;
+            const win = new THREE.Mesh(new THREE.PlaneGeometry(chassisWidth * 0.78, cabinHeight * 0.85), glassMat);
+            win.position.set(0, bodyBaseY + lowerHeight + cabinHeight * 0.5, chassisLength * 0.14);
+            win.rotation.x = -0.32;
             chassisGroup.add(win);
+
+            const rWin = new THREE.Mesh(new THREE.PlaneGeometry(chassisWidth * 0.78, cabinHeight * 0.8), glassMat);
+            rWin.position.set(0, bodyBaseY + lowerHeight + cabinHeight * 0.5, -chassisLength * 0.43);
+            rWin.rotation.x = 0.32;
+            rWin.rotation.y = Math.PI;
+            chassisGroup.add(rWin);
           } else if (cfg.id === 'pickup') {
-            const cab = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.9, chassisHeight * 0.55, chassisLength * 0.4), bodyMat);
-            cab.position.set(0, chassisHeight * 0.75, 0.45);
+            const cabHeight = chassisHeight * 0.55;
+            const cab = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.9, cabHeight, chassisLength * 0.42), bodyMat);
+            cab.position.set(0, bodyBaseY + lowerHeight + cabHeight / 2, chassisLength * 0.18);
             chassisGroup.add(cab);
 
-            const cargo = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.6, 0.8), parcelMat);
-            cargo.position.set(0.15, chassisHeight * 0.55, -0.8);
-            chassisGroup.add(cargo);
+            const crate = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.75, 0.45, chassisLength * 0.35), parcelMat);
+            crate.position.set(0, bodyBaseY + lowerHeight + 0.22, -chassisLength * 0.25);
+            chassisGroup.add(crate);
           } else {
             // Van / Truck
+            const cargoHeight = chassisHeight * 0.85;
             const cargo = new THREE.Mesh(
-              new THREE.BoxGeometry(chassisWidth * 0.95, chassisHeight * 0.85, chassisLength * 0.65),
+              new THREE.BoxGeometry(chassisWidth * 0.96, cargoHeight, chassisLength * 0.65),
               cfg.id === 'truk' ? new THREE.MeshLambertMaterial({ color: 0x334155 }) : bodyMat
             );
-            cargo.position.set(0, chassisHeight * 0.75, -chassisLength * 0.15);
+            cargo.position.set(0, bodyBaseY + lowerHeight + cargoHeight / 2 - 0.1, -chassisLength * 0.14);
             chassisGroup.add(cargo);
 
-            const cab = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.9, chassisHeight * 0.65, chassisLength * 0.3), bodyMat);
-            cab.position.set(0, chassisHeight * 0.65, chassisLength * 0.32);
+            const cabHeight = chassisHeight * 0.7;
+            const cab = new THREE.Mesh(new THREE.BoxGeometry(chassisWidth * 0.92, cabHeight, chassisLength * 0.32), bodyMat);
+            cab.position.set(0, bodyBaseY + lowerHeight + cabHeight / 2 - 0.15, chassisLength * 0.32);
             chassisGroup.add(cab);
           }
 
-          // Front Headlights (+Z)
-          const fHeadL = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.18, 0.1), lightMat);
-          fHeadL.position.set(chassisWidth * 0.35, chassisHeight * 0.35, chassisLength * 0.51);
+          // Lampu Depan & Belakang
+          const fHeadL = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.15, 0.1), lightMat);
+          fHeadL.position.set(chassisWidth * 0.36, bodyBaseY + lowerHeight * 0.65, chassisLength * 0.5);
           chassisGroup.add(fHeadL);
           const fHeadR = fHeadL.clone();
-          fHeadR.position.x = -chassisWidth * 0.35;
+          fHeadR.position.x = -chassisWidth * 0.36;
           chassisGroup.add(fHeadR);
 
-          // Rear Taillights (-Z)
-          const rTailL = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.18, 0.1), redLightMat);
-          rTailL.position.set(chassisWidth * 0.35, chassisHeight * 0.35, -chassisLength * 0.51);
+          const rTailL = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.15, 0.1), redLightMat);
+          rTailL.position.set(chassisWidth * 0.36, bodyBaseY + lowerHeight * 0.65, -chassisLength * 0.5);
           chassisGroup.add(rTailL);
           const rTailR = rTailL.clone();
-          rTailR.position.x = -chassisWidth * 0.35;
+          rTailR.position.x = -chassisWidth * 0.36;
           chassisGroup.add(rTailR);
         }
 
-        // Elevated chassis position relative to wheel axle center
-        const hitboxOffsetY = wheelRadius + chassisHeight * 0.35;
-        chassisGroup.position.set(0, hitboxOffsetY, 0);
         group.add(chassisGroup);
+        scene.add(group);
 
         // Contact Blob Shadow under vehicle
         const shadow = new THREE.Mesh(
-          new THREE.PlaneGeometry(chassisWidth * 1.35, chassisLength * 1.25),
+          new THREE.PlaneGeometry(chassisWidth * 1.3, chassisLength * 1.2),
           mats.blobShadow
         );
         shadow.rotation.x = -Math.PI / 2;
         shadow.position.y = 0.02;
-        scene.add(shadow); // add to world scene so it sits flat on the road
+        scene.add(shadow);
 
-        // CANNON Chassis Body (Hitbox with safe clearance above road)
+        // CANNON Rigid Body Hitbox (allowSleep: false ensures car NEVER freezes)
         const chassisShape = new CANNON.Box(
-          new CANNON.Vec3(chassisWidth * 0.48, chassisHeight * 0.42, chassisLength * 0.48)
+          new CANNON.Vec3(chassisWidth * 0.48, chassisHeight * 0.45, chassisLength * 0.48)
         );
         const chassisBody = new CANNON.Body({
           mass: cfg.mass,
-          position: new CANNON.Vec3(0, wheelRadius + 0.6, 0),
-          linearDamping: 0.15,
-          angularDamping: 0.5
+          position: new CANNON.Vec3(0, wheelRadius + chassisHeight * 0.4, 0),
+          linearDamping: 0.1,
+          angularDamping: 0.5,
+          allowSleep: false
         });
-        chassisBody.addShape(chassisShape, new CANNON.Vec3(0, hitboxOffsetY, 0));
+        chassisBody.addShape(chassisShape);
+        world.addBody(chassisBody);
 
-        // Crash sound listener on physical obstacle collision
         chassisBody.addEventListener('collide', (e) => {
           const contact = e.contact;
           if (!contact) return;
@@ -1540,72 +1997,14 @@
           }
         });
 
-        // CANNON RaycastVehicle (AWD, Responsive Suspension)
-        const vehicle = new CANNON.RaycastVehicle({
-          chassisBody: chassisBody,
-          indexRightAxis: 0,
-          indexUpAxis: 1,
-          indexForwardAxis: 2
-        });
-
-        const wheelMeshes = [];
-        const wheelHalfTrack = cfg.isBike ? 0.25 : (chassisWidth / 2 * 0.88);
-        const wheelBase = chassisLength * 0.32;
-        const wheelConnY = wheelRadius * 0.4; // Connection point above wheel axle
-
-        const wheelOptions = {
-          radius: wheelRadius,
-          directionLocal: new CANNON.Vec3(0, -1, 0),
-          suspensionStiffness: Math.max(90, cfg.mass * 0.28), // Never bottoms out!
-          suspensionRestLength: 0.45,
-          frictionSlip: 5.0,
-          dampingRelaxation: 4.5,
-          dampingCompression: 5.5,
-          maxSuspensionForce: 300000,
-          rollInfluence: 0.12,
-          axleLocal: new CANNON.Vec3(1, 0, 0), // +X axis: Positive force = forward (+Z)
-          chassisConnectionPointLocal: new CANNON.Vec3(),
-          maxSuspensionTravel: 0.28,
-          customSlidingRotationalSpeed: -30,
-          useCustomSlidingRotationalSpeed: true
-        };
-
-        const wheelPositions = [
-          new CANNON.Vec3(wheelHalfTrack, wheelConnY, wheelBase),   // 0: Front Left
-          new CANNON.Vec3(-wheelHalfTrack, wheelConnY, wheelBase),  // 1: Front Right
-          new CANNON.Vec3(wheelHalfTrack, wheelConnY, -wheelBase),  // 2: Rear Left
-          new CANNON.Vec3(-wheelHalfTrack, wheelConnY, -wheelBase)  // 3: Rear Right
-        ];
-
-        const wheelGeo = new THREE.CylinderGeometry(wheelRadius, wheelRadius, cfg.isBike ? 0.22 : 0.32, 16);
-        wheelGeo.rotateZ(Math.PI / 2);
-        const wheelMat = new THREE.MeshLambertMaterial({ color: 0x111827 });
-        const rimGeo = new THREE.CylinderGeometry(wheelRadius * 0.55, wheelRadius * 0.55, cfg.isBike ? 0.23 : 0.33, 8);
-        rimGeo.rotateZ(Math.PI / 2);
-        const rimMat = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
-
-        wheelPositions.forEach((pos, i) => {
-          const opt = Object.assign({}, wheelOptions, { chassisConnectionPointLocal: pos });
-          vehicle.addWheel(opt);
-
-          const wMesh = new THREE.Group();
-          wMesh.add(new THREE.Mesh(wheelGeo, wheelMat));
-          wMesh.add(new THREE.Mesh(rimGeo, rimMat));
-          if (cfg.isBike && (i === 1 || i === 3)) wMesh.visible = false;
-          scene.add(wMesh);
-          wheelMeshes.push(wMesh);
-        });
-
-        vehicle.addToWorld(world);
-        scene.add(group);
-
         return {
           cfg,
           group,
           chassisGroup,
           chassisBody,
-          vehicle,
           wheelMeshes,
+          frontLeftPivot,
+          frontRightPivot,
           shadow
         };
       }
@@ -1826,17 +2225,15 @@
        ========================================================================== */
     function spawnVehicle(vehId, posX, posZ, rotY) {
       if (state.activeVehicle) {
-        state.activeVehicle.vehicle.removeFromWorld(world);
         world.removeBody(state.activeVehicle.chassisBody);
         scene.remove(state.activeVehicle.group);
         if (state.activeVehicle.shadow) scene.remove(state.activeVehicle.shadow);
-        state.activeVehicle.wheelMeshes.forEach(wm => scene.remove(wm));
         state.activeVehicle = null;
       }
 
       const cfg = VEHICLES_DATA.find(v => v.id === vehId) || VEHICLES_DATA[2];
       const vehObj = VehicleFactory.createVehicle(cfg);
-      vehObj.chassisBody.position.set(posX, cfg.wheelRadius + 0.55, posZ);
+      vehObj.chassisBody.position.set(posX, cfg.wheelRadius + cfg.height * 0.4, posZ);
       vehObj.chassisBody.quaternion.setFromEuler(0, rotY || 0, 0);
       vehObj.chassisBody.velocity.set(0, 0, 0);
       vehObj.chassisBody.angularVelocity.set(0, 0, 0);
@@ -1847,19 +2244,16 @@
       return vehObj;
     }
 
-    // Summon vehicle right in front of player on the road
+    // Panggil kendaraan di aspal dekat pemain
     function summonVehicleNearPlayer(vehId) {
       sound.playSummon();
       const pPos = player.body.position;
       
-      // Calculate summon spot 4m ahead
       const forwardDir = new THREE.Vector3(-Math.sin(freeCam.yaw), 0, -Math.cos(freeCam.yaw)).normalize();
-      const spawnX = pPos.x + forwardDir.x * 4.0;
-      const spawnZ = pPos.z + forwardDir.z * 4.0;
+      const spawnX = pPos.x + forwardDir.x * 4.5;
+      const spawnZ = pPos.z + forwardDir.z * 4.5;
 
       spawnVehicle(vehId, spawnX, spawnZ, freeCam.yaw);
-
-      // Flash interaction prompt
       showPrompt('NAIK KENDARAAN (E)', enterVehicle);
     }
 
@@ -1870,11 +2264,7 @@
       player.setVisible(false);
       state.activeVehicle.chassisBody.wakeUp();
 
-      for (let i = 0; i < 4; i++) {
-        state.activeVehicle.vehicle.setBrake(0, i);
-      }
-
-      // UI Switch to Driving Controls
+      // UI Switch ke Kontrol Mengemudi
       document.getElementById('touch-controls-drive-left').style.display = 'flex';
       document.getElementById('touch-controls-drive-right').style.display = 'flex';
       document.getElementById('touch-drive-extras').style.display = 'flex';
@@ -1897,7 +2287,6 @@
       const vehQuat = vehBody.quaternion;
       state.mode = MODES.WALKING;
 
-      // Spawn player to the left of the driver door
       const exitOffset = new THREE.Vector3(2.2, 0.4, 0);
       const q = new THREE.Quaternion(vehQuat.x, vehQuat.y, vehQuat.z, vehQuat.w);
       exitOffset.applyQuaternion(q);
@@ -1908,14 +2297,10 @@
       player.body.velocity.set(0, 0, 0);
       player.body.angularVelocity.set(0, 0, 0);
 
-      // Apply brakes to stopped vehicle
       vehBody.velocity.set(0, 0, 0);
       vehBody.angularVelocity.set(0, 0, 0);
-      for (let i = 0; i < 4; i++) {
-        state.activeVehicle.vehicle.setBrake(80, i);
-      }
 
-      // UI Switch to Walking Controls
+      // UI Switch ke Kontrol Jalan Kaki
       document.getElementById('touch-controls-drive-left').style.display = 'none';
       document.getElementById('touch-controls-drive-right').style.display = 'none';
       document.getElementById('touch-drive-extras').style.display = 'none';
@@ -1934,16 +2319,13 @@
       const body = state.activeVehicle.chassisBody;
       body.wakeUp();
 
-      // Lift car 1.8m upright and clear angular velocity
-      body.position.y += 1.8;
+      // Tegakkan mobil lurus di atas jalan
+      body.position.y = state.activeVehicle.cfg.wheelRadius + state.activeVehicle.cfg.height * 0.4;
       const euler = new CANNON.Vec3();
       body.quaternion.toEuler(euler);
       body.quaternion.setFromEuler(0, euler.y, 0);
       body.velocity.set(0, 0, 0);
       body.angularVelocity.set(0, 0, 0);
-      for (let i = 0; i < 4; i++) {
-        state.activeVehicle.vehicle.setBrake(0, i);
-      }
       sound.playClick();
     }
 
@@ -1958,10 +2340,10 @@
     }
 
     /* ==========================================================================
-       11. MISSION SYSTEM (Ambil Order via HP Kurir)
+       11. MISSION SYSTEM (Ambil Order Makanan via HP Kurir)
        ========================================================================== */
     function acceptMission(missionId) {
-      const mission = MISSIONS_DATA.find(m => m.id === missionId);
+      const mission = currentAvailableMissions.find(m => m.id === missionId);
       if (!mission) return;
 
       state.activeMission = mission;
@@ -1993,21 +2375,20 @@
       // Distance Readout
       document.getElementById('hud-mission-dist').innerText = `${Math.round(dist)} m`;
 
-      // Compass Pointer Angle (relative to camera yaw)
+      // Compass Pointer Angle
       const angleToTarget = Math.atan2(dx, dz);
       const relativeAngle = angleToTarget - freeCam.yaw;
       const deg = (relativeAngle * 180 / Math.PI) + 180;
       document.getElementById('hud-compass-needle').style.transform = `rotate(${deg}deg)`;
 
-      // Check arrival (< 4.5m)
-      if (dist < 4.5) {
+      // Check arrival (< 5.0m)
+      if (dist < 5.0) {
         if (state.missionStep === 'pickup') {
           state.missionStep = 'dropoff';
           waypoint.setMode('dropoff', state.activeMission.dropoff);
           document.getElementById('hud-mission-name').innerText = `ANTAR: ${state.activeMission.dropoff.name}`;
           sound.playPickup();
         } else if (state.missionStep === 'dropoff') {
-          // Success!
           finishMission(true);
         }
       }
@@ -2029,7 +2410,7 @@
 
         title.innerText = 'PENGIRIMAN SUKSES!';
         title.style.color = 'var(--green-success)';
-        desc.innerText = `Paket pesanan dari ${state.activeMission.client} telah diserahkan tepat waktu!`;
+        desc.innerText = `Pesanan ${state.activeMission.title} telah diserahkan hangat & tepat waktu ke pelanggan!`;
         rewVal.innerText = `+Rp ${state.activeMission.reward.toLocaleString('id-ID')}`;
         rewVal.style.color = 'var(--gold-accent)';
         totVal.innerText = `Rp ${state.wallet.toLocaleString('id-ID')}`;
@@ -2038,7 +2419,7 @@
       } else {
         title.innerText = 'WAKTU PENGIRIMAN HABIS!';
         title.style.color = 'var(--red-danger)';
-        desc.innerText = 'Paket terlambat diantar. Pelanggan membatalkan pesanan.';
+        desc.innerText = 'Makanan terlambat diantar. Pelanggan membatalkan pesanan.';
         rewVal.innerText = 'Rp 0';
         rewVal.style.color = 'var(--red-danger)';
         totVal.innerText = `Rp ${state.wallet.toLocaleString('id-ID')}`;
@@ -2050,6 +2431,9 @@
       document.getElementById('hud-mission-pill').style.display = 'none';
       document.getElementById('hud-freeroam-pill').style.display = 'flex';
       modal.style.display = 'flex';
+
+      // Regenerasi order baru secara dinamis
+      currentAvailableMissions = generateDynamicMissions(5);
     }
 
     document.getElementById('btn-close-result').onclick = () => {
@@ -2114,18 +2498,26 @@
 
     function renderPhoneMissions() {
       tabContMissions.innerHTML = '';
-      MISSIONS_DATA.forEach(m => {
+      currentAvailableMissions.forEach(m => {
         const card = document.createElement('div');
         card.className = 'phone-card';
         card.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:11px; font-weight:800; color:var(--cyan-neon);">ORDER #${m.id}</span>
-            <span style="font-size:12px; font-weight:800; color:var(--gold-accent);">Rp ${m.reward.toLocaleString('id-ID')}</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:18px;">${m.icon || '🍱'}</span>
+              <span style="font-size:11px; font-weight:800; color:var(--cyan-neon);">${m.foodType}</span>
+            </div>
+            <span style="font-size:13px; font-weight:900; color:var(--gold-accent);">Rp ${m.reward.toLocaleString('id-ID')}</span>
           </div>
-          <h4 style="font-size:15px; font-weight:800; color:#fff;">${m.title}</h4>
-          <p style="font-size:11px; color:var(--text-muted);">${m.desc}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-            <span style="font-size:11px; color:#cbd5e1;">⏱️ Batas Waktu: <b>${m.timeLimit}s</b></span>
+          <h4 style="font-size:15px; font-weight:800; color:#fff; margin:2px 0;">${m.title}</h4>
+          <div style="font-size:11px; color:#cbd5e1;">📍 <b>Resto:</b> ${m.pickup.name}</div>
+          <div style="font-size:11px; color:#cbd5e1;">🎯 <b>Tujuan:</b> ${m.dropoff.name}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+            <div style="display:flex; gap:8px; font-size:11px; color:#94a3b8;">
+              <span>🛣️ ${m.distance}m</span>
+              <span>⏱️ ${m.timeLimit}s</span>
+              <span style="color:var(--cyan-neon); font-weight:700;">[${m.difficultyTier}]</span>
+            </div>
             <button class="unity-btn" style="padding:6px 14px; font-size:11px;" id="btn-accept-m-${m.id}">TERIMA ORDER</button>
           </div>
         `;
@@ -2166,14 +2558,108 @@
     }
 
     /* ==========================================================================
-       13. FREE-ORBIT TOUCH & MOUSE CAMERA DRAG CONTROLLER
+       13. SETTINGS SYSTEM & FREE-ORBIT CAMERA CONTROLLER
        ========================================================================== */
+    const gameSettings = {
+      fullscreen: false,
+      sound: true,
+      camSens: 1.0,
+      invertCam: false
+    };
+
+    function setupSettingsSystem() {
+      const modal = document.getElementById('settings-modal');
+      const toggleFsBtn = document.getElementById('toggle-fullscreen-btn');
+      const toggleSndBtn = document.getElementById('toggle-sound-btn');
+      const sensSlider = document.getElementById('setting-cam-sens');
+      const sensLabel = document.getElementById('cam-sens-val');
+      const toggleInvertBtn = document.getElementById('toggle-invert-cam-btn');
+
+      function updateSettingsUI() {
+        const isFs = !!document.fullscreenElement;
+        toggleFsBtn.innerText = isFs ? 'AKTIF' : 'AKTIFKAN';
+        toggleFsBtn.classList.toggle('active', isFs);
+
+        toggleSndBtn.innerText = gameSettings.sound ? 'NYALA' : 'MATI';
+        toggleSndBtn.classList.toggle('active', gameSettings.sound);
+
+        sensLabel.innerText = `${gameSettings.camSens.toFixed(1)}x`;
+        sensSlider.value = gameSettings.camSens;
+
+        toggleInvertBtn.innerText = gameSettings.invertCam ? 'TERBALIK' : 'NORMAL';
+        toggleInvertBtn.classList.toggle('active', gameSettings.invertCam);
+      }
+
+      // Open Settings Modal
+      const openSettings = () => {
+        sound.playClick();
+        updateSettingsUI();
+        modal.style.display = 'flex';
+      };
+
+      const closeSettings = () => {
+        sound.playClick();
+        modal.style.display = 'none';
+      };
+
+      document.getElementById('btn-menu-settings').onclick = openSettings;
+      document.getElementById('btn-hud-settings').onclick = openSettings;
+      document.getElementById('btn-close-settings').onclick = closeSettings;
+      document.getElementById('btn-save-settings').onclick = closeSettings;
+
+      // Fullscreen Toggle
+      const toggleFullscreen = () => {
+        sound.playClick();
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
+        } else {
+          document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+        }
+        setTimeout(updateSettingsUI, 100);
+      };
+      toggleFsBtn.onclick = toggleFullscreen;
+      document.getElementById('btn-hud-fullscreen').onclick = toggleFullscreen;
+
+      // Sound Toggle
+      const toggleSound = () => {
+        const isMuted = sound.toggleMute();
+        gameSettings.sound = !isMuted;
+        document.getElementById('hud-sound-icon').style.opacity = isMuted ? '0.3' : '1.0';
+        updateSettingsUI();
+      };
+      toggleSndBtn.onclick = toggleSound;
+      document.getElementById('btn-hud-audio').onclick = toggleSound;
+
+      // Camera Sensitivity
+      sensSlider.oninput = (e) => {
+        gameSettings.camSens = parseFloat(e.target.value);
+        sensLabel.innerText = `${gameSettings.camSens.toFixed(1)}x`;
+      };
+
+      // Camera Invert Yaw
+      toggleInvertBtn.onclick = () => {
+        sound.playClick();
+        gameSettings.invertCam = !gameSettings.invertCam;
+        updateSettingsUI();
+      };
+
+      // Main Menu Play Button
+      document.getElementById('btn-menu-play').onclick = () => {
+        sound.playClick();
+        sound.init();
+        const menu = document.getElementById('screen-main-menu');
+        menu.style.opacity = '0';
+        setTimeout(() => {
+          menu.style.display = 'none';
+          enterVehicle();
+        }, 300);
+      };
+    }
+
     function setupFreeCameraControls() {
-      // Touch/Pointer Drag on background canvas to freely orbit camera
       let activePointerId = null;
 
       canvas.addEventListener('pointerdown', (e) => {
-        // Only trigger if clicking canvas directly
         if (e.target !== canvas) return;
         freeCam.isDragging = true;
         activePointerId = e.pointerId;
@@ -2190,9 +2676,11 @@
         freeCam.lastPointerX = e.clientX;
         freeCam.lastPointerY = e.clientY;
 
-        // Rotate yaw & pitch
-        freeCam.yaw -= deltaX * 0.007;
-        freeCam.pitch = Math.max(0.08, Math.min(1.15, freeCam.pitch + deltaY * 0.006));
+        const sensX = 0.007 * (gameSettings.camSens || 1.0) * (gameSettings.invertCam ? -1 : 1);
+        const sensY = 0.006 * (gameSettings.camSens || 1.0);
+
+        freeCam.yaw -= deltaX * sensX;
+        freeCam.pitch = Math.max(0.08, Math.min(1.15, freeCam.pitch + deltaY * sensY));
       });
 
       const stopDrag = (e) => {
@@ -2205,19 +2693,18 @@
       canvas.addEventListener('pointerup', stopDrag);
       canvas.addEventListener('pointercancel', stopDrag);
 
-      // Mouse wheel zoom
       window.addEventListener('wheel', (e) => {
         freeCam.targetDistance = Math.max(3.5, Math.min(14.0, freeCam.targetDistance + e.deltaY * 0.005));
       }, { passive: true });
     }
 
     /* ==========================================================================
-       14. DRIVING & WALKING INPUT CONTROLLER (Zero conflict, multi-touch)
+       14. DRIVING & WALKING INPUT CONTROLLER (Multi-touch)
        ========================================================================== */
     function setupInputs() {
+      setupSettingsSystem();
       setupFreeCameraControls();
 
-      // Touch Button Multi-touch Tracker
       let touchGas = false;
       let touchBrake = false;
       let touchLeft = false;
@@ -2286,7 +2773,6 @@
         () => { touchRight = false; }
       );
 
-      // Horn & Exit
       document.getElementById('touch-horn').addEventListener('pointerdown', () => sound.playHorn());
       document.getElementById('touch-exit-vehicle').addEventListener('pointerdown', exitVehicle);
 
@@ -2333,12 +2819,11 @@
       joyContainer.addEventListener('pointerup', resetJoy);
       joyContainer.addEventListener('pointercancel', resetJoy);
 
-      // Walking Enter Car Button
       document.getElementById('touch-walk-enter').addEventListener('pointerdown', () => {
         enterVehicle();
       });
 
-      // Keyboard Controls (Desktop Testing)
+      // Keyboard Controls (Desktop testing)
       const keys = {};
       window.addEventListener('keydown', (e) => {
         keys[e.code] = true;
@@ -2389,20 +2874,7 @@
         }
       };
 
-      // Header buttons
       document.getElementById('btn-hud-reset').onclick = resetVehiclePosition;
-      document.getElementById('btn-hud-audio').onclick = () => {
-        const muted = sound.toggleMute();
-        document.getElementById('hud-sound-icon').style.opacity = muted ? '0.3' : '1.0';
-      };
-
-      document.getElementById('btn-hud-fullscreen').onclick = () => {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
-        } else {
-          document.exitFullscreen?.() || document.webkitExitFullscreen?.();
-        }
-      };
 
       // Landscape orientation check
       function checkOrientation() {
@@ -2417,7 +2889,7 @@
     }
 
     /* ==========================================================================
-       15. MAIN GAME SIMULATION & RENDER LOOP
+       15. MAIN GAME SIMULATION & ARCADE DRIVING LOOP
        ========================================================================== */
     let lastTime = performance.now();
     const speedoElem = document.getElementById('speedo-val');
@@ -2434,7 +2906,6 @@
       // Fixed Cannon physics step
       world.step(1 / 60, dt, 3);
 
-      // Living NPCs and Waypoint
       npcManager.update(dt);
       waypoint.update(dt);
 
@@ -2453,104 +2924,133 @@
         }
       }
 
-      // Smooth camera distance interpolation
       freeCam.distance = THREE.MathUtils.lerp(freeCam.distance, freeCam.targetDistance, 0.1);
 
-      // Calculate camera horizontal forward and right directions
       const camForward = new THREE.Vector3(-Math.sin(freeCam.yaw), 0, -Math.cos(freeCam.yaw)).normalize();
       const camRight = new THREE.Vector3(Math.cos(freeCam.yaw), 0, -Math.sin(freeCam.yaw)).normalize();
 
       if (state.mode === MODES.DRIVING && state.activeVehicle) {
-        const veh = state.activeVehicle.vehicle;
         const cfg = state.activeVehicle.cfg;
         const chassisBody = state.activeVehicle.chassisBody;
+        chassisBody.wakeUp();
 
-        // Current vehicle speed & forward velocity component
-        const currentVel = chassisBody.velocity;
-        const carQuat = chassisBody.quaternion;
-        const carForwardDir = new THREE.Vector3(0, 0, 1).applyQuaternion(
-          new THREE.Quaternion(carQuat.x, carQuat.y, carQuat.z, carQuat.w)
+        // Heading vector from vehicle quaternion (+Z forward)
+        const carQuat = new THREE.Quaternion(
+          chassisBody.quaternion.x,
+          chassisBody.quaternion.y,
+          chassisBody.quaternion.z,
+          chassisBody.quaternion.w
         );
-        const forwardSpeed = new THREE.Vector3(currentVel.x, currentVel.y, currentVel.z).dot(carForwardDir);
-        const speed = Math.abs(forwardSpeed);
-        const kmh = Math.round(speed * 3.6);
+        const forwardDir = new THREE.Vector3(0, 0, 1).applyQuaternion(carQuat);
+        const rightDir = new THREE.Vector3(1, 0, 0).applyQuaternion(carQuat);
+
+        const vX = chassisBody.velocity.x;
+        const vZ = chassisBody.velocity.z;
+        const forwardSpeed = forwardDir.x * vX + forwardDir.z * vZ;
+        const lateralSpeed = rightDir.x * vX + rightDir.z * vZ;
+
+        // Grip damping: eliminasi slip samping berlebihan
+        chassisBody.velocity.x -= rightDir.x * lateralSpeed * 0.88;
+        chassisBody.velocity.z -= rightDir.z * lateralSpeed * 0.88;
+
+        const absSpeed = Math.abs(forwardSpeed);
+        const kmh = Math.round(absSpeed * 3.6);
         speedoElem.innerText = kmh;
-        sound.updateEngineSpeed(speed / 18);
+        sound.updateEngineSpeed(absSpeed / 18);
 
-        // STEERING
-        const steerAngle = input.steer * cfg.maxSteer;
-        veh.setSteeringValue(steerAngle, 0);
-        veh.setSteeringValue(steerAngle, 1);
-
-        // AWD DRIVE FORCES
-        const wheelFwdForce = cfg.maxForce / 4;
-        const wheelRevForce = -cfg.maxForce * 0.7 / 4;
+        // AKSELERASI & PENGEREMAN RESPONSIF
+        const maxSpeed = cfg.isBike ? 24 : (cfg.id === 'truk' ? 16 : 22);
+        const accelRate = cfg.isBike ? 18 : (cfg.id === 'sedan' ? 16 : 14);
+        const brakeRate = 30;
 
         if (input.throttle > 0) {
-          // GAS MAJU: Release brakes, apply forward AWD torque
-          for (let i = 0; i < 4; i++) {
-            veh.setBrake(0, i);
-            veh.applyEngineForce(wheelFwdForce, i);
+          // GAS MAJU
+          if (forwardSpeed < maxSpeed) {
+            chassisBody.velocity.x += forwardDir.x * accelRate * dt;
+            chassisBody.velocity.z += forwardDir.z * accelRate * dt;
           }
         } else if (input.throttle < 0) {
-          // REM / MUNDUR:
-          if (forwardSpeed > 0.8) {
-            // Rolling forward -> apply firm brake
-            for (let i = 0; i < 4; i++) {
-              veh.applyEngineForce(0, i);
-              veh.setBrake(65, i);
-            }
-          } else {
-            // Stopped or reversing -> clean reverse drive
-            for (let i = 0; i < 4; i++) {
-              veh.setBrake(0, i);
-              veh.applyEngineForce(wheelRevForce, i);
-            }
+          // REM / MUNDUR
+          if (forwardSpeed > 0.6) {
+            const decel = Math.min(forwardSpeed, brakeRate * dt);
+            chassisBody.velocity.x -= forwardDir.x * decel;
+            chassisBody.velocity.z -= forwardDir.z * decel;
+          } else if (forwardSpeed > -maxSpeed * 0.45) {
+            chassisBody.velocity.x -= forwardDir.x * accelRate * 0.65 * dt;
+            chassisBody.velocity.z -= forwardDir.z * accelRate * 0.65 * dt;
           }
         } else {
-          // NEUTRAL: Gentle rolling resistance
-          const neutralBrake = (speed > 0.3) ? 8 : 28;
-          for (let i = 0; i < 4; i++) {
-            veh.applyEngineForce(0, i);
-            veh.setBrake(neutralBrake, i);
-          }
+          // Hambatan gelinding alami
+          const friction = Math.pow(0.85, dt * 60);
+          chassisBody.velocity.x *= friction;
+          chassisBody.velocity.z *= friction;
         }
 
-        // Sync Wheels with Raycast
-        for (let i = 0; i < veh.wheelInfos.length; i++) {
-          veh.updateWheelTransform(i);
-          const t = veh.wheelInfos[i].worldTransform;
-          const wm = state.activeVehicle.wheelMeshes[i];
-          if (wm) {
-            wm.position.copy(t.position);
-            wm.quaternion.copy(t.quaternion);
-          }
+        // STEERING RESPONSIF
+        const steerSpeedFactor = Math.min(1.0, Math.max(0.2, absSpeed / 3.5));
+        const steerDir = forwardSpeed >= -0.1 ? 1 : -1;
+        if (input.steer !== 0) {
+          chassisBody.angularVelocity.y = input.steer * cfg.maxSteer * 3.0 * steerSpeedFactor * steerDir;
+        } else {
+          chassisBody.angularVelocity.y *= 0.7;
         }
 
-        // Sync Chassis Mesh & Blob Shadow
-        state.activeVehicle.group.position.copy(chassisBody.position);
-        state.activeVehicle.group.quaternion.copy(chassisBody.quaternion);
-        if (state.activeVehicle.shadow) {
-          state.activeVehicle.shadow.position.set(chassisBody.position.x, 0.025, chassisBody.position.z);
-          state.activeVehicle.shadow.rotation.z = -chassisBody.quaternion.y;
+        // Jaga mobil tetap tegak lurus
+        const euler = new THREE.Euler().setFromQuaternion(carQuat, 'YXZ');
+        euler.x = THREE.MathUtils.lerp(euler.x, 0, 0.2);
+        euler.z = THREE.MathUtils.lerp(euler.z, 0, 0.2);
+        const fixedQ = new THREE.Quaternion().setFromEuler(euler);
+        chassisBody.quaternion.set(fixedQ.x, fixedQ.y, fixedQ.z, fixedQ.w);
+
+        // Ketinggian chassis agar roda pas menyentuh aspal
+        if (chassisBody.position.y < 0.1 || chassisBody.position.y > 1.8) {
+          chassisBody.position.y = THREE.MathUtils.lerp(chassisBody.position.y, 0.28, 0.25);
+          chassisBody.velocity.y = 0;
         }
 
-        // Body Lean Roll on turning
-        const targetRoll = -steerAngle * (speed / 18) * cfg.tiltFactor;
+        // Visual belokan roda depan
+        const steerAngle = input.steer * 0.45;
+        if (state.activeVehicle.frontLeftPivot) state.activeVehicle.frontLeftPivot.rotation.y = steerAngle;
+        if (state.activeVehicle.frontRightPivot) state.activeVehicle.frontRightPivot.rotation.y = steerAngle;
+
+        // Visual putaran ban sesuai kecepatan
+        const spinDelta = (forwardSpeed / cfg.wheelRadius) * dt;
+        state.activeVehicle.wheelMeshes.forEach(wm => {
+          wm.rotation.x += spinDelta;
+        });
+
+        // Kemiringan bodi saat bermanuver
+        const targetRoll = -input.steer * (absSpeed / 18) * cfg.tiltFactor;
         state.activeVehicle.chassisGroup.rotation.z = THREE.MathUtils.lerp(
           state.activeVehicle.chassisGroup.rotation.z,
           targetRoll,
           0.15
         );
 
-        // Target for Camera Orbit (Center of Vehicle)
+        // Sinkronisasi posisi 3D visual (Y=0.0 menjamin ban persis di atas aspal tanpa tenggelam)
+        state.activeVehicle.group.position.set(
+          chassisBody.position.x,
+          0.0,
+          chassisBody.position.z
+        );
+        state.activeVehicle.group.quaternion.set(
+          fixedQ.x,
+          fixedQ.y,
+          fixedQ.z,
+          fixedQ.w
+        );
+
+        if (state.activeVehicle.shadow) {
+          state.activeVehicle.shadow.position.set(chassisBody.position.x, 0.02, chassisBody.position.z);
+          state.activeVehicle.shadow.rotation.z = -fixedQ.y;
+        }
+
         const targetCenter = new THREE.Vector3(
           chassisBody.position.x,
           chassisBody.position.y + 0.8,
           chassisBody.position.z
         );
 
-        // Calculate Orbit Camera Position from Yaw, Pitch, and Distance
         const camX = targetCenter.x + Math.sin(freeCam.yaw) * Math.cos(freeCam.pitch) * freeCam.distance;
         const camY = targetCenter.y + Math.sin(freeCam.pitch) * freeCam.distance;
         const camZ = targetCenter.z + Math.cos(freeCam.yaw) * Math.cos(freeCam.pitch) * freeCam.distance;
@@ -2571,12 +3071,11 @@
         camera.position.lerp(new THREE.Vector3(camX, Math.max(camY, 1.0), camZ), 0.18);
         camera.lookAt(targetCenter);
 
-        // Distance Check to Parked Vehicle for "NAIK" Prompt
         if (state.activeVehicle) {
           const vPos = state.activeVehicle.chassisBody.position;
           const dist = Math.hypot(pPos.x - vPos.x, pPos.z - vPos.z);
           const prompt = document.getElementById('hud-prompt-action');
-          if (dist < 3.8) {
+          if (dist < 4.0) {
             prompt.style.display = 'flex';
             document.getElementById('prompt-action-text').innerText = 'NAIK KENDARAAN (E)';
             prompt.onclick = enterVehicle;
@@ -2597,12 +3096,23 @@
     });
 
     /* ==========================================================================
-       16. INITIALIZATION (Direct Entry to Open World)
+       16. INITIALIZATION (Splash -> Main Menu -> Open World)
        ========================================================================== */
     function init() {
       setupInputs();
 
-      // Quick Splash Progress Bar -> Open World
+      // Auto-fade petunjuk kamera setelah 4 detik (User: Hilangkan UI yang gak penting)
+      setTimeout(() => {
+        const toast = document.querySelector('.cam-hint-toast');
+        if (toast) {
+          toast.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, -15px)';
+          setTimeout(() => { toast.style.display = 'none'; }, 800);
+        }
+      }, 4000);
+
+      // Splash Progress Bar
       const bar = document.getElementById('splash-bar');
       const splash = document.getElementById('screen-splash');
       let p = 0;
@@ -2615,15 +3125,15 @@
             splash.style.opacity = '0';
             setTimeout(() => { splash.style.display = 'none'; }, 400);
 
-            // Spawn player at central crossroads
+            // Munculkan Menu Awal Game (Start Screen)
+            const menu = document.getElementById('screen-main-menu');
+            menu.style.display = 'flex';
+
+            // Spawn player di trotoar sentral
             player.body.position.set(0, 1.2, 0);
 
-            // Also spawn an initial Sedan parked nearby on the road lane
+            // Spawn Sedan di lajur jalan dekat player
             spawnVehicle('sedan', 0, 8, 0);
-
-            // Start in Walking mode or Driving mode:
-            // Let player start right in the open world, ready to explore or enter their car!
-            enterVehicle();
           }, 200);
         }
       }, 50);
