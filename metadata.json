@@ -1,0 +1,6 @@
+{
+  "name": "Kurir Kota 3D - Low Poly Delivery",
+  "description": "Game web 3D RPG open-world kurir antar paket di kota low-poly dengan fisika realistis Cannon-es dan kontrol mobile.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
