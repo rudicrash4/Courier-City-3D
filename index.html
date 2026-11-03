@@ -240,19 +240,19 @@
       z-index: 20;
     }
 
-    /* Floating Prompt (Naik / Ambil Paket) */
+    /* Action Prompt (Disimpan di kanan-bawah agar tengah layar 100% bersih tanpa halangan) */
     #hud-prompt-action {
       position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      bottom: 96px;
+      right: 20px;
+      transform: none;
       background: linear-gradient(135deg, #00e5ff 0%, #0077b6 100%);
       color: #031326;
       font-weight: 900;
-      font-size: 14px;
-      padding: 12px 24px;
+      font-size: 13px;
+      padding: 10px 18px;
       border-radius: 999px;
-      box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
+      box-shadow: 0 4px 18px rgba(0, 229, 255, 0.6);
       pointer-events: auto;
       cursor: pointer;
       display: none;
@@ -260,11 +260,118 @@
       gap: 8px;
       text-transform: uppercase;
       z-index: 50;
-      animation: promptBounce 0.8s infinite alternate;
+      transition: transform 0.1s ease;
     }
-    @keyframes promptBounce {
-      0% { transform: translate(-50%, -50%) scale(1); }
-      100% { transform: translate(-50%, -50%) scale(1.06); }
+    #hud-prompt-action:active {
+      transform: scale(0.95);
+    }
+
+    /* MINI-MAP (Radar Navigasi Real-Time) */
+    .minimap-panel {
+      position: absolute;
+      top: 56px;
+      left: 12px;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: rgba(8, 14, 28, 0.90);
+      border: 2px solid rgba(0, 229, 255, 0.7);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.65), 0 0 16px rgba(0, 229, 255, 0.35);
+      overflow: hidden;
+      pointer-events: auto;
+      z-index: 25;
+    }
+    #minimap-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .minimap-north {
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 900;
+      color: var(--cyan-neon);
+      pointer-events: none;
+      text-shadow: 0 0 6px rgba(0, 229, 255, 0.8);
+    }
+    .minimap-badge {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      font-weight: 800;
+      color: #94a3b8;
+      pointer-events: none;
+      letter-spacing: 0.5px;
+    }
+
+    /* PENGATURAN LANGSUNG DI BAWAH TOMBOL PLAY MENU */
+    .menu-direct-settings {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-radius: 18px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .direct-settings-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .direct-settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .direct-set-btn {
+      background: rgba(13, 19, 33, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f1f5f9;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 10px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+    .direct-set-btn:active {
+      transform: scale(0.95);
+    }
+    .direct-set-btn.active {
+      background: rgba(0, 229, 255, 0.2);
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+    }
+
+    /* ROTASI LAYAR PAKSA PADA HP (CSS Fallback Mode) */
+    @media (orientation: portrait) {
+      body.force-landscape-css #game-canvas,
+      body.force-landscape-css #ui-container {
+        position: fixed !important;
+        width: 100vh !important;
+        height: 100vw !important;
+        transform: rotate(90deg);
+        transform-origin: top left;
+        top: 0;
+        left: 100vw;
+        overflow: hidden;
+      }
     }
 
     /* Landscape Touch Clusters */
@@ -717,20 +824,48 @@
         </div>
         <h1 class="menu-game-title">KURIR KOTA 3D</h1>
         <p class="menu-game-sub">SIMULATOR PENGANTAR MAKANAN OPEN WORLD</p>
+        
         <div class="menu-btn-group">
+          <!-- MAIN SEKARANG (PLAY) -->
           <button id="btn-menu-play" class="unity-btn unity-btn-main">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span>MAIN SEKARANG</span>
           </button>
-          <button id="btn-menu-settings" class="unity-btn unity-btn-secondary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            <span>PENGATURAN</span>
-          </button>
+
+          <!-- PENGATURAN LANGSUNG TERBUKA DI BAWAH TOMBOL PLAY -->
+          <div class="menu-direct-settings">
+            <div class="direct-settings-title">⚙️ PENGATURAN CEPAT</div>
+            <div class="direct-settings-grid">
+              <!-- Fullscreen Button -->
+              <button id="menu-btn-fullscreen" class="direct-set-btn" title="Aktifkan Layar Penuh">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                <span id="menu-fs-label">FULLSCREEN</span>
+              </button>
+
+              <!-- Paksa Rotasi Landscape Button -->
+              <button id="menu-btn-rotate" class="direct-set-btn" title="Kunci / Paksa Mode Landscape HP">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/><path d="M17 9l3-3-3-3"/><path d="M20 6H9"/></svg>
+                <span id="menu-rot-label">ROTASI HP</span>
+              </button>
+
+              <!-- Suara Toggle Button -->
+              <button id="menu-btn-sound" class="direct-set-btn active" title="Suara Mesin & Efek">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                <span id="menu-snd-label">SUARA: ON</span>
+              </button>
+
+              <!-- Sensitivitas Kamera Button -->
+              <button id="menu-btn-sens" class="direct-set-btn" title="Sensitivitas Usap Kamera">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 12h2m14 0h2M12 3v2m0 14v2"/></svg>
+                <span id="menu-sens-label">KAMERA 1.0x</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- SETTINGS MODAL (Pilihan Pengaturan: Fullscreen, Rotasi, Suara, dll.) -->
+    <!-- SETTINGS MODAL (Pilihan Pengaturan Lengkap) -->
     <div id="settings-modal">
       <div class="unity-panel settings-panel">
         <div class="settings-header">
@@ -749,6 +884,15 @@
               <div class="settings-desc">Perluas tampilan game memenuhi layar HP / PC</div>
             </div>
             <button id="toggle-fullscreen-btn" class="unity-toggle-btn">AKTIFKAN</button>
+          </div>
+
+          <!-- Paksa Rotasi Landscape -->
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Paksa Rotasi Landscape HP</div>
+              <div class="settings-desc">Kunci game dalam tampilan mendatar (horizontal)</div>
+            </div>
+            <button id="toggle-rotate-btn" class="unity-toggle-btn">KUNCI HORIZONTAL</button>
           </div>
 
           <!-- Sound Toggle & Volume -->
@@ -818,11 +962,15 @@
         </div>
       </div>
 
-      <!-- Right cluster: In-Game Smartphone, Settings & Fullscreen -->
+      <!-- Right cluster: In-Game Smartphone, Settings, Audio, Rotate, Fullscreen -->
       <div class="hud-cluster-right">
         <button id="btn-open-phone" class="hud-phone-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
           <span>HP KURIR</span>
+        </button>
+
+        <button id="btn-hud-rotate" class="unity-icon-btn" title="Paksa Rotasi Landscape (Horizontal)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/><path d="M17 9l3-3-3-3"/><path d="M20 6H9"/></svg>
         </button>
 
         <button id="btn-hud-settings" class="unity-icon-btn" title="Pengaturan">
@@ -837,6 +985,13 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         </button>
       </div>
+    </div>
+
+    <!-- REAL-TIME RADAR MINI-MAP (Top Left) -->
+    <div id="minimap-panel" class="minimap-panel">
+      <canvas id="minimap-canvas" width="108" height="108"></canvas>
+      <div class="minimap-north">U</div>
+      <div class="minimap-badge">GPS</div>
     </div>
 
     <!-- Free-Camera Drag Hint (Auto fades away after 4s) -->
@@ -994,8 +1149,11 @@
         <line x1="12" y1="18" x2="12.01" y2="18"/>
       </svg>
       <h3 style="font-size: 18px; font-weight: 800; color: #fff; margin-top: 16px;">PUTAR KE MODE LANDSCAPE (HORIZONTAL)</h3>
-      <p style="font-size: 12px; color: #94a3b8; margin-top: 6px; max-width: 300px;">Game ini dirancang terbaik dalam orientasi horizontal / landscape di layar HP.</p>
-      <button id="btn-dismiss-landscape" class="unity-btn unity-btn-secondary" style="margin-top: 20px;">TETAP MAINKAN</button>
+      <p style="font-size: 12px; color: #94a3b8; margin-top: 6px; max-width: 320px;">Game ini dirancang terbaik dalam orientasi horizontal / landscape di layar HP.</p>
+      <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">
+        <button id="btn-notice-force-rot" class="unity-btn" style="padding: 10px 18px; font-size: 12px;">🔄 PAKSA MODE LANDSCAPE</button>
+        <button id="btn-dismiss-landscape" class="unity-btn unity-btn-secondary" style="padding: 10px 18px; font-size: 12px;">TETAP MAINKAN</button>
+      </div>
     </div>
 
   </div>
@@ -1185,7 +1343,9 @@
         color: 0x00e5ff,
         mass: 160,
         maxForce: 2400,
-        maxSteer: 0.75,
+        maxSteer: 0.85,
+        maxSpeed: 34, // ~122 km/h
+        accelRate: 50,
         width: 0.8, height: 1.0, length: 1.8,
         wheelRadius: 0.32,
         tiltFactor: 0.35,
@@ -1199,7 +1359,9 @@
         color: 0xef476f,
         mass: 240,
         maxForce: 3200,
-        maxSteer: 0.70,
+        maxSteer: 0.80,
+        maxSpeed: 44, // ~158 km/h
+        accelRate: 58,
         width: 0.8, height: 1.1, length: 2.1,
         wheelRadius: 0.35,
         tiltFactor: 0.40,
@@ -1213,7 +1375,9 @@
         color: 0x3a86ff,
         mass: 800,
         maxForce: 5200,
-        maxSteer: 0.58,
+        maxSteer: 0.68,
+        maxSpeed: 38, // ~137 km/h
+        accelRate: 48,
         width: 1.8, height: 1.2, length: 3.6,
         wheelRadius: 0.38,
         tiltFactor: 0.12,
@@ -1227,7 +1391,9 @@
         color: 0xffd166,
         mass: 1200,
         maxForce: 6500,
-        maxSteer: 0.52,
+        maxSteer: 0.60,
+        maxSpeed: 34, // ~122 km/h
+        accelRate: 42,
         width: 1.9, height: 1.4, length: 4.2,
         wheelRadius: 0.42,
         tiltFactor: 0.08,
@@ -1241,7 +1407,9 @@
         color: 0xf8fafc,
         mass: 1700,
         maxForce: 7600,
-        maxSteer: 0.48,
+        maxSteer: 0.55,
+        maxSpeed: 32, // ~115 km/h
+        accelRate: 38,
         width: 2.0, height: 1.8, length: 4.6,
         wheelRadius: 0.44,
         tiltFactor: 0.06,
@@ -1255,7 +1423,9 @@
         color: 0xf77f00,
         mass: 2800,
         maxForce: 9500,
-        maxSteer: 0.40,
+        maxSteer: 0.48,
+        maxSpeed: 28, // ~100 km/h
+        accelRate: 34,
         width: 2.3, height: 2.3, length: 5.6,
         wheelRadius: 0.50,
         tiltFactor: 0.04,
@@ -1981,8 +2151,8 @@
         const chassisBody = new CANNON.Body({
           mass: cfg.mass,
           position: new CANNON.Vec3(0, wheelRadius + chassisHeight * 0.4, 0),
-          linearDamping: 0.1,
-          angularDamping: 0.5,
+          linearDamping: 0.015,
+          angularDamping: 0.3,
           allowSleep: false
         });
         chassisBody.addShape(chassisShape);
@@ -2574,38 +2744,75 @@
       const sensSlider = document.getElementById('setting-cam-sens');
       const sensLabel = document.getElementById('cam-sens-val');
       const toggleInvertBtn = document.getElementById('toggle-invert-cam-btn');
+      const toggleRotBtn = document.getElementById('toggle-rotate-btn');
+
+      // Auto-fade camera hint after 4 seconds to keep viewport clean
+      setTimeout(() => {
+        const hint = document.querySelector('.cam-hint-toast');
+        if (hint) {
+          hint.style.transition = 'opacity 0.6s ease';
+          hint.style.opacity = '0';
+          setTimeout(() => hint.remove(), 700);
+        }
+      }, 4000);
 
       function updateSettingsUI() {
         const isFs = !!document.fullscreenElement;
-        toggleFsBtn.innerText = isFs ? 'AKTIF' : 'AKTIFKAN';
-        toggleFsBtn.classList.toggle('active', isFs);
+        if (toggleFsBtn) {
+          toggleFsBtn.innerText = isFs ? 'AKTIF' : 'AKTIFKAN';
+          toggleFsBtn.classList.toggle('active', isFs);
+        }
+        const menuFsLabel = document.getElementById('menu-fs-label');
+        const menuFsBtn = document.getElementById('menu-btn-fullscreen');
+        if (menuFsLabel) menuFsLabel.innerText = isFs ? 'FULLSCREEN ON' : 'LAYAR PENUH';
+        if (menuFsBtn) menuFsBtn.classList.toggle('active', isFs);
 
-        toggleSndBtn.innerText = gameSettings.sound ? 'NYALA' : 'MATI';
-        toggleSndBtn.classList.toggle('active', gameSettings.sound);
+        const isForcedRot = document.body.classList.contains('force-landscape-css');
+        const menuRotBtn = document.getElementById('menu-btn-rotate');
+        const menuRotLabel = document.getElementById('menu-rot-label');
+        if (menuRotBtn) menuRotBtn.classList.toggle('active', isForcedRot);
+        if (menuRotLabel) menuRotLabel.innerText = isForcedRot ? 'LANDSCAPE ON' : 'ROTASI HP';
+        if (toggleRotBtn) {
+          toggleRotBtn.innerText = isForcedRot ? 'AKTIF (90°)' : 'KUNCI HORIZONTAL';
+          toggleRotBtn.classList.toggle('active', isForcedRot);
+        }
 
-        sensLabel.innerText = `${gameSettings.camSens.toFixed(1)}x`;
-        sensSlider.value = gameSettings.camSens;
+        if (toggleSndBtn) {
+          toggleSndBtn.innerText = gameSettings.sound ? 'NYALA' : 'MATI';
+          toggleSndBtn.classList.toggle('active', gameSettings.sound);
+        }
+        const menuSndBtn = document.getElementById('menu-btn-sound');
+        const menuSndLabel = document.getElementById('menu-snd-label');
+        if (menuSndBtn) menuSndBtn.classList.toggle('active', gameSettings.sound);
+        if (menuSndLabel) menuSndLabel.innerText = gameSettings.sound ? 'SUARA: ON' : 'SUARA: OFF';
 
-        toggleInvertBtn.innerText = gameSettings.invertCam ? 'TERBALIK' : 'NORMAL';
-        toggleInvertBtn.classList.toggle('active', gameSettings.invertCam);
+        const sensText = `${gameSettings.camSens.toFixed(1)}x`;
+        if (sensLabel) sensLabel.innerText = sensText;
+        if (sensSlider) sensSlider.value = gameSettings.camSens;
+        const menuSensLabel = document.getElementById('menu-sens-label');
+        if (menuSensLabel) menuSensLabel.innerText = `KAMERA ${sensText}`;
+
+        if (toggleInvertBtn) {
+          toggleInvertBtn.innerText = gameSettings.invertCam ? 'TERBALIK' : 'NORMAL';
+          toggleInvertBtn.classList.toggle('active', gameSettings.invertCam);
+        }
       }
 
       // Open Settings Modal
       const openSettings = () => {
         sound.playClick();
         updateSettingsUI();
-        modal.style.display = 'flex';
+        if (modal) modal.style.display = 'flex';
       };
 
       const closeSettings = () => {
         sound.playClick();
-        modal.style.display = 'none';
+        if (modal) modal.style.display = 'none';
       };
 
-      document.getElementById('btn-menu-settings').onclick = openSettings;
-      document.getElementById('btn-hud-settings').onclick = openSettings;
-      document.getElementById('btn-close-settings').onclick = closeSettings;
-      document.getElementById('btn-save-settings').onclick = closeSettings;
+      if (document.getElementById('btn-hud-settings')) document.getElementById('btn-hud-settings').onclick = openSettings;
+      if (document.getElementById('btn-close-settings')) document.getElementById('btn-close-settings').onclick = closeSettings;
+      if (document.getElementById('btn-save-settings')) document.getElementById('btn-save-settings').onclick = closeSettings;
 
       // Fullscreen Toggle
       const toggleFullscreen = () => {
@@ -2615,33 +2822,97 @@
         } else {
           document.exitFullscreen?.() || document.webkitExitFullscreen?.();
         }
-        setTimeout(updateSettingsUI, 100);
+        setTimeout(updateSettingsUI, 120);
       };
-      toggleFsBtn.onclick = toggleFullscreen;
-      document.getElementById('btn-hud-fullscreen').onclick = toggleFullscreen;
+      if (toggleFsBtn) toggleFsBtn.onclick = toggleFullscreen;
+      if (document.getElementById('btn-hud-fullscreen')) document.getElementById('btn-hud-fullscreen').onclick = toggleFullscreen;
+      if (document.getElementById('menu-btn-fullscreen')) document.getElementById('menu-btn-fullscreen').onclick = toggleFullscreen;
+
+      // Forced Landscape / Screen Orientation Lock
+      async function forceLandscape() {
+        sound.playClick();
+        try {
+          if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+              await document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+              await document.documentElement.webkitRequestFullscreen();
+            }
+          }
+        } catch(e) {}
+
+        let locked = false;
+        if (screen.orientation && screen.orientation.lock) {
+          try {
+            await screen.orientation.lock('landscape');
+            locked = true;
+          } catch(err) {
+            console.log('Orientation lock note:', err);
+          }
+        }
+
+        // Fallback CSS forced rotation if browser blocks orientation API (e.g. mobile Safari / portrait)
+        if (!locked && window.innerHeight > window.innerWidth) {
+          document.body.classList.toggle('force-landscape-css');
+        } else {
+          // If already wide or locked, toggle fallback off
+          if (document.body.classList.contains('force-landscape-css')) {
+            document.body.classList.remove('force-landscape-css');
+          }
+        }
+
+        document.getElementById('landscape-notice').style.display = 'none';
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+        }, 150);
+        updateSettingsUI();
+      }
+
+      if (toggleRotBtn) toggleRotBtn.onclick = forceLandscape;
+      if (document.getElementById('menu-btn-rotate')) document.getElementById('menu-btn-rotate').onclick = forceLandscape;
+      if (document.getElementById('btn-hud-rotate')) document.getElementById('btn-hud-rotate').onclick = forceLandscape;
+      if (document.getElementById('btn-notice-force-rot')) document.getElementById('btn-notice-force-rot').onclick = forceLandscape;
 
       // Sound Toggle
       const toggleSound = () => {
         const isMuted = sound.toggleMute();
         gameSettings.sound = !isMuted;
-        document.getElementById('hud-sound-icon').style.opacity = isMuted ? '0.3' : '1.0';
+        const hudIcon = document.getElementById('hud-sound-icon');
+        if (hudIcon) hudIcon.style.opacity = isMuted ? '0.3' : '1.0';
         updateSettingsUI();
       };
-      toggleSndBtn.onclick = toggleSound;
-      document.getElementById('btn-hud-audio').onclick = toggleSound;
+      if (toggleSndBtn) toggleSndBtn.onclick = toggleSound;
+      if (document.getElementById('btn-hud-audio')) document.getElementById('btn-hud-audio').onclick = toggleSound;
+      if (document.getElementById('menu-btn-sound')) document.getElementById('menu-btn-sound').onclick = toggleSound;
 
-      // Camera Sensitivity
-      sensSlider.oninput = (e) => {
-        gameSettings.camSens = parseFloat(e.target.value);
-        sensLabel.innerText = `${gameSettings.camSens.toFixed(1)}x`;
-      };
+      // Camera Sensitivity Quick Toggle in Menu
+      if (document.getElementById('menu-btn-sens')) {
+        document.getElementById('menu-btn-sens').onclick = () => {
+          sound.playClick();
+          if (gameSettings.camSens >= 2.0) gameSettings.camSens = 0.8;
+          else if (gameSettings.camSens >= 1.4) gameSettings.camSens = 2.0;
+          else if (gameSettings.camSens >= 1.0) gameSettings.camSens = 1.4;
+          else gameSettings.camSens = 1.0;
+          updateSettingsUI();
+        };
+      }
+
+      // Camera Sensitivity Slider in Modal
+      if (sensSlider) {
+        sensSlider.oninput = (e) => {
+          gameSettings.camSens = parseFloat(e.target.value);
+          updateSettingsUI();
+        };
+      }
 
       // Camera Invert Yaw
-      toggleInvertBtn.onclick = () => {
-        sound.playClick();
-        gameSettings.invertCam = !gameSettings.invertCam;
-        updateSettingsUI();
-      };
+      if (toggleInvertBtn) {
+        toggleInvertBtn.onclick = () => {
+          sound.playClick();
+          gameSettings.invertCam = !gameSettings.invertCam;
+          updateSettingsUI();
+        };
+      }
 
       // Main Menu Play Button
       document.getElementById('btn-menu-play').onclick = () => {
@@ -2654,6 +2925,8 @@
           enterVehicle();
         }, 300);
       };
+
+      updateSettingsUI();
     }
 
     function setupFreeCameraControls() {
@@ -2956,22 +3229,22 @@
         const absSpeed = Math.abs(forwardSpeed);
         const kmh = Math.round(absSpeed * 3.6);
         speedoElem.innerText = kmh;
-        sound.updateEngineSpeed(absSpeed / 18);
+        sound.updateEngineSpeed(absSpeed / 24);
 
-        // AKSELERASI & PENGEREMAN RESPONSIF
-        const maxSpeed = cfg.isBike ? 24 : (cfg.id === 'truk' ? 16 : 22);
-        const accelRate = cfg.isBike ? 18 : (cfg.id === 'sedan' ? 16 : 14);
-        const brakeRate = 30;
+        // AKSELERASI & KECEPATAN TINGGI (Responsif, Kencang & Gesit)
+        const maxSpeed = cfg.maxSpeed || (cfg.isBike ? 42 : (cfg.id === 'truk' ? 28 : 36));
+        const accelRate = cfg.accelRate || (cfg.isBike ? 56 : 46);
+        const brakeRate = 42;
 
         if (input.throttle > 0) {
-          // GAS MAJU
+          // GAS MAJU CEPAT
           if (forwardSpeed < maxSpeed) {
             chassisBody.velocity.x += forwardDir.x * accelRate * dt;
             chassisBody.velocity.z += forwardDir.z * accelRate * dt;
           }
         } else if (input.throttle < 0) {
-          // REM / MUNDUR
-          if (forwardSpeed > 0.6) {
+          // REM PAKEM / MUNDUR
+          if (forwardSpeed > 0.8) {
             const decel = Math.min(forwardSpeed, brakeRate * dt);
             chassisBody.velocity.x -= forwardDir.x * decel;
             chassisBody.velocity.z -= forwardDir.z * decel;
@@ -2980,19 +3253,19 @@
             chassisBody.velocity.z -= forwardDir.z * accelRate * 0.65 * dt;
           }
         } else {
-          // Hambatan gelinding alami
-          const friction = Math.pow(0.85, dt * 60);
+          // Hambatan gelinding alami saat pedal gas dilepas (coasting halus)
+          const friction = Math.pow(0.965, dt * 60);
           chassisBody.velocity.x *= friction;
           chassisBody.velocity.z *= friction;
         }
 
-        // STEERING RESPONSIF
-        const steerSpeedFactor = Math.min(1.0, Math.max(0.2, absSpeed / 3.5));
-        const steerDir = forwardSpeed >= -0.1 ? 1 : -1;
+        // STEERING RESPONSIF DENGAN GRIP DINAMIS
+        const steerSpeedFactor = Math.min(1.0, Math.max(0.35, absSpeed / 2.2));
+        const steerDir = forwardSpeed >= -0.2 ? 1 : -1;
         if (input.steer !== 0) {
-          chassisBody.angularVelocity.y = input.steer * cfg.maxSteer * 3.0 * steerSpeedFactor * steerDir;
+          chassisBody.angularVelocity.y = input.steer * cfg.maxSteer * 4.2 * steerSpeedFactor * steerDir;
         } else {
-          chassisBody.angularVelocity.y *= 0.7;
+          chassisBody.angularVelocity.y *= 0.65;
         }
 
         // Jaga mobil tetap tegak lurus
@@ -3085,15 +3358,218 @@
         }
       }
 
+      // Render 3D Scene
       renderer.render(scene, camera);
+
+      // Render 2D GPS Radar Mini-Map
+      updateMinimap(dt);
     }
 
-    // Resize Handler
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    /* ==========================================================================
+       16. REAL-TIME MINI-MAP RADAR RENDERER
+       ========================================================================== */
+    const minimapCanvas = document.getElementById('minimap-canvas');
+    const minimapCtx = minimapCanvas ? minimapCanvas.getContext('2d') : null;
+    let minimapPulse = 0;
+
+    function updateMinimap(dt) {
+      if (!minimapCtx || !minimapCanvas) return;
+      minimapPulse += dt * 4;
+
+      const w = minimapCanvas.width;
+      const h = minimapCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = w / 2 - 2;
+
+      // Current player / vehicle world coordinate & heading angle
+      let px = 0;
+      let pz = 0;
+      let yaw = 0;
+
+      if (state.mode === MODES.DRIVING && state.activeVehicle) {
+        const cb = state.activeVehicle.chassisBody;
+        px = cb.position.x;
+        pz = cb.position.z;
+        const q = cb.quaternion;
+        const carQuat = new THREE.Quaternion(q.x, q.y, q.z, q.w);
+        const fwd = new THREE.Vector3(0, 0, 1).applyQuaternion(carQuat);
+        yaw = Math.atan2(fwd.x, fwd.z);
+      } else {
+        px = player.group.position.x;
+        pz = player.group.position.z;
+        yaw = player.group.rotation.y;
+      }
+
+      minimapCtx.clearRect(0, 0, w, h);
+
+      // Clip to circular radar
+      minimapCtx.save();
+      minimapCtx.beginPath();
+      minimapCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+      minimapCtx.clip();
+
+      // Radar dark background
+      minimapCtx.fillStyle = '#090e1a';
+      minimapCtx.fillRect(0, 0, w, h);
+
+      // Radar range rings (North-up view)
+      const scale = 0.52; // pixels per world meter (~200m visible radius)
+      minimapCtx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
+      minimapCtx.lineWidth = 1;
+
+      minimapCtx.beginPath();
+      minimapCtx.arc(cx, cy, 32 * scale, 0, Math.PI * 2);
+      minimapCtx.stroke();
+
+      minimapCtx.beginPath();
+      minimapCtx.arc(cx, cy, 68 * scale, 0, Math.PI * 2);
+      minimapCtx.stroke();
+
+      minimapCtx.beginPath();
+      minimapCtx.arc(cx, cy, 98 * scale, 0, Math.PI * 2);
+      minimapCtx.stroke();
+
+      // Crosshair guide
+      minimapCtx.beginPath();
+      minimapCtx.moveTo(cx, 0); minimapCtx.lineTo(cx, h);
+      minimapCtx.moveTo(0, cy); minimapCtx.lineTo(w, cy);
+      minimapCtx.strokeStyle = 'rgba(0, 229, 255, 0.08)';
+      minimapCtx.stroke();
+
+      // Roads (-80, 0, 80)
+      const roadPositions = [-80, 0, 80];
+      const roadWidthPx = 22 * scale;
+
+      minimapCtx.fillStyle = '#1e293b';
+      roadPositions.forEach(rPos => {
+        // Horizontal road
+        const ry = cy + (rPos - pz) * scale - roadWidthPx / 2;
+        minimapCtx.fillRect(0, ry, w, roadWidthPx);
+
+        // Vertical road
+        const rx = cx + (rPos - px) * scale - roadWidthPx / 2;
+        minimapCtx.fillRect(rx, 0, roadWidthPx, h);
+      });
+
+      // Road center dashed yellow markings
+      minimapCtx.strokeStyle = 'rgba(250, 204, 21, 0.4)';
+      minimapCtx.lineWidth = 1;
+      minimapCtx.setLineDash([3, 3]);
+      roadPositions.forEach(rPos => {
+        const ry = cy + (rPos - pz) * scale;
+        minimapCtx.beginPath();
+        minimapCtx.moveTo(0, ry); minimapCtx.lineTo(w, ry);
+        minimapCtx.stroke();
+
+        const rx = cx + (rPos - px) * scale;
+        minimapCtx.beginPath();
+        minimapCtx.moveTo(rx, 0); minimapCtx.lineTo(rx, h);
+        minimapCtx.stroke();
+      });
+      minimapCtx.setLineDash([]);
+
+      // Draw all Restaurants (Small amber POI dots)
+      RESTAURANTS_POI.forEach(r => {
+        const rx = cx + (r.x - px) * scale;
+        const ry = cy + (r.z - pz) * scale;
+        const d = Math.hypot(rx - cx, ry - cy);
+        if (d < radius - 3) {
+          minimapCtx.fillStyle = '#f59e0b';
+          minimapCtx.beginPath();
+          minimapCtx.arc(rx, ry, 2.8, 0, Math.PI * 2);
+          minimapCtx.fill();
+        }
+      });
+
+      // Draw all Customer destinations (Small cyan POI dots)
+      CUSTOMERS_POI.forEach(c => {
+        const cxPos = cx + (c.x - px) * scale;
+        const cyPos = cy + (c.z - pz) * scale;
+        const d = Math.hypot(cxPos - cx, cyPos - cy);
+        if (d < radius - 3) {
+          minimapCtx.fillStyle = '#38bdf8';
+          minimapCtx.beginPath();
+          minimapCtx.arc(cxPos, cyPos, 2.8, 0, Math.PI * 2);
+          minimapCtx.fill();
+        }
+      });
+
+      // Draw Active Mission Objective (Pickup or Dropoff)
+      if (state.activeMission) {
+        const isPickup = state.activeMission.stage === 'pickup';
+        const target = isPickup ? state.activeMission.pickup : state.activeMission.dropoff;
+        const targetColor = isPickup ? '#f59e0b' : '#00e5ff';
+
+        const tx = cx + (target.x - px) * scale;
+        const ty = cy + (target.z - pz) * scale;
+        const dist = Math.hypot(tx - cx, ty - cy);
+
+        if (dist > radius - 7) {
+          // Off-screen indicator clamped to edge of radar
+          const angle = Math.atan2(ty - cy, tx - cx);
+          const edgeX = cx + Math.cos(angle) * (radius - 7);
+          const edgeY = cy + Math.sin(angle) * (radius - 7);
+
+          minimapCtx.save();
+          minimapCtx.translate(edgeX, edgeY);
+          minimapCtx.rotate(angle);
+          minimapCtx.fillStyle = targetColor;
+          minimapCtx.beginPath();
+          minimapCtx.moveTo(6, 0);
+          minimapCtx.lineTo(-4, -4);
+          minimapCtx.lineTo(-4, 4);
+          minimapCtx.closePath();
+          minimapCtx.fill();
+          minimapCtx.restore();
+        } else {
+          // In-radar target beacon with pulsating wave
+          const pulseR = 4 + Math.sin(minimapPulse) * 2.5;
+          minimapCtx.strokeStyle = targetColor;
+          minimapCtx.lineWidth = 1.8;
+          minimapCtx.beginPath();
+          minimapCtx.arc(tx, ty, pulseR + 4, 0, Math.PI * 2);
+          minimapCtx.stroke();
+
+          minimapCtx.fillStyle = targetColor;
+          minimapCtx.beginPath();
+          minimapCtx.arc(tx, ty, 4.5, 0, Math.PI * 2);
+          minimapCtx.fill();
+        }
+      }
+
+      // Draw Player / Vehicle Arrow at center pointing in forward direction
+      minimapCtx.save();
+      minimapCtx.translate(cx, cy);
+      minimapCtx.rotate(yaw);
+
+      // Cyan neon arrow
+      minimapCtx.fillStyle = '#00e5ff';
+      minimapCtx.shadowColor = '#00e5ff';
+      minimapCtx.shadowBlur = 8;
+      minimapCtx.beginPath();
+      minimapCtx.moveTo(0, 8); // front direction (+Z in Three.js coordinate)
+      minimapCtx.lineTo(-5, -6);
+      minimapCtx.lineTo(0, -3);
+      minimapCtx.lineTo(5, -6);
+      minimapCtx.closePath();
+      minimapCtx.fill();
+
+      minimapCtx.restore();
+
+      minimapCtx.restore(); // restore clip
+    }
+
+    // Adaptive Resize Handler (Supports forced landscape mode & dynamic device rotations)
+    function onWindowResize() {
+      const isForced = document.body.classList.contains('force-landscape-css');
+      const width = isForced ? window.innerHeight : window.innerWidth;
+      const height = isForced ? window.innerWidth : window.innerHeight;
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+      renderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onWindowResize);
 
     /* ==========================================================================
        16. INITIALIZATION (Splash -> Main Menu -> Open World)
